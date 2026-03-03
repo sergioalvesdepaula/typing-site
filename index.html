@@ -141,6 +141,7 @@ function setMode(selected){
         timeLeft = 60;
     } else {
         timeLeft = 0;
+        renderProgress();
     }
 
     document.getElementById("time").innerText = timeLeft;
@@ -199,7 +200,7 @@ function resetTest(){
 }
 
 loadText();
-
+renderProgress();
 </script>
 
 </body>
