@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Typing Test</title>
+
+<style>
+body{
+    font-family: Arial, sans-serif;
+    background:#0f172a;
+    color:white;
+    text-align:center;
+    margin:0;
+    padding:20px;
+}
+
+.container{
+    max-width:800px;
+    margin:auto;
+}
+
+button{
+    padding:10px 15px;
+    margin:5px;
+    border:none;
+    border-radius:6px;
+    cursor:pointer;
+    font-weight:bold;
+}
+
+.primary{background:#22c55e;color:white;}
+.blue{background:#3b82f6;color:white;}
+.red{background:#ef4444;color:white;}
+
+#text{
+    background:#1e293b;
+    padding:15px;
+    border-radius:8px;
+    margin:20px 0;
+    min-height:80px;
+}
+
+input{
+    width:100%;
+    padding:12px;
+    font-size:16px;
+    border-radius:8px;
+    border:none;
+}
+
+.stats{
+    display:flex;
+    justify-content:space-around;
+    margin-top:20px;
+}
+</style>
+</head>
+<body>
+
+<div class="container">
+
+<h1>Free Typing Practice & Test</h1>
+
+<div>
+<button class="blue" onclick="setMode('practice')">Practice</button>
+<button class="primary" onclick="setMode('30')">Test 30s</button>
+<button class="primary" onclick="setMode('60')">Test 60s</button>
+<button class="red" onclick="resetTest()">Reset</button>
+</div>
+
+<div id="text"></div>
+
+<input type="text" id="input" placeholder="Start typing here..." oninput="checkTyping()">
+
+<div class="stats">
+<div>Time: <span id="time">0</span></div>
+<div>WPM: <span id="wpm">0</span></div>
+<div>Accuracy: <span id="accuracy">100%</span></div>
+</div>
+
+</div>
+
+<script>
+
+const texts = [
+"Typing is a powerful skill that improves productivity and focus.",
+"Practice every day and your speed will increase naturally.",
+"Accuracy is more important than speed at the beginning."
+];
+
+let mode = "practice";
+let timer = null;
+let timeLeft = 0;
+let startTime = null;
+let totalTyped = 0;
+let correctTyped = 0;
+
+const textElement = document.getElementById("text");
+const inputElement = document.getElementById("input");
+
+function loadText(){
+    const random = texts[Math.floor(Math.random()*texts.length)];
+    textElement.innerText = random;
+}
+
+function setMode(selected){
+    resetTest();
+    mode = selected;
+    loadText();
+
+    if(selected === "30"){
+        timeLeft = 30;
+    } else if(selected === "60"){
+        timeLeft = 60;
+    } else {
+        timeLeft = 0;
+    }
+
+    document.getElementById("time").innerText = timeLeft;
+}
+
+function startTimer(){
+    if(mode === "practice") return;
+
+    timer = setInterval(()=>{
+        timeLeft--;
+        document.getElementById("time").innerText = timeLeft;
+        if(timeLeft <= 0){
+            clearInterval(timer);
+            inputElement.disabled = true;
+        }
+    },1000);
+}
+
+function checkTyping(){
+    if(!startTime){
+        startTime = new Date();
+        startTimer();
+    }
+
+    const text = textElement.innerText;
+    const input = inputElement.value;
+
+    totalTyped = input.length;
+    correctTyped = 0;
+
+    for(let i=0;i<input.length;i++){
+        if(input[i] === text[i]){
+            correctTyped++;
+        }
+    }
+
+    let accuracy = totalTyped > 0 ? (correctTyped/totalTyped)*100 : 100;
+    document.getElementById("accuracy").innerText = accuracy.toFixed(0) + "%";
+
+    const timeElapsed = (new Date() - startTime) / 1000 / 60;
+    const wpm = timeElapsed > 0 ? (correctTyped/5) / timeElapsed : 0;
+    document.getElementById("wpm").innerText = Math.round(wpm);
+}
+
+function resetTest(){
+    clearInterval(timer);
+    timer = null;
+    inputElement.disabled = false;
+    inputElement.value = "";
+    startTime = null;
+    totalTyped = 0;
+    correctTyped = 0;
+    document.getElementById("wpm").innerText = "0";
+    document.getElementById("accuracy").innerText = "100%";
+    document.getElementById("time").innerText = "0";
+}
+
+loadText();
+
+</script>
+
+</body>
+</html>
