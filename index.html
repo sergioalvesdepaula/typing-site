@@ -1,207 +1,544 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Typing Test</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Free Typing Practice & Test (30s / 60s)</title>
+  <meta name="description" content="Free typing practice and timed typing tests (30 seconds and 1 minute). Track WPM and accuracy. No signup required." />
 
-<style>
-body{
-    font-family: Arial, sans-serif;
-    background:#0f172a;
-    color:white;
-    text-align:center;
-    margin:0;
-    padding:20px;
-}
+  <!-- (Opcional) SEO básico para Ads -->
+  <meta name="robots" content="index,follow" />
 
-.container{
-    max-width:800px;
-    margin:auto;
-}
+  <!-- ✅ AdSense (COLOQUE SEU SCRIPT AQUI QUANDO TIVER) -->
+  <!--
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=SEU_CLIENT_ID"
+    crossorigin="anonymous"></script>
+  -->
 
-button{
-    padding:10px 15px;
-    margin:5px;
-    border:none;
-    border-radius:6px;
-    cursor:pointer;
-    font-weight:bold;
-}
+  <style>
+    :root{
+      --bg:#0b1220;
+      --card:#111b2f;
+      --card2:#0f172a;
+      --text:#e5e7eb;
+      --muted:#9ca3af;
+      --accent:#22c55e;
+      --accent2:#3b82f6;
+      --danger:#ef4444;
+      --border:rgba(255,255,255,.10);
+      --shadow: 0 12px 30px rgba(0,0,0,.35);
+      --radius:16px;
+      --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      --sans: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
+    }
 
-.primary{background:#22c55e;color:white;}
-.blue{background:#3b82f6;color:white;}
-.red{background:#ef4444;color:white;}
+    *{ box-sizing:border-box; }
+    body{
+      margin:0;
+      padding:20px 14px 60px;
+      font-family:var(--sans);
+      color:var(--text);
+      background:
+        radial-gradient(900px 600px at 10% 0%, rgba(59,130,246,.18), transparent 55%),
+        radial-gradient(900px 600px at 90% 10%, rgba(34,197,94,.14), transparent 55%),
+        var(--bg);
+    }
+    .wrap{ max-width:980px; margin:0 auto; }
+    header{
+      display:flex; gap:12px; align-items:center; justify-content:space-between;
+      margin-bottom:12px;
+    }
+    .brand{
+      display:flex; gap:12px; align-items:center;
+    }
+    .logo{
+      width:42px; height:42px; border-radius:14px;
+      background: linear-gradient(135deg, rgba(59,130,246,.95), rgba(34,197,94,.9));
+      box-shadow: var(--shadow);
+    }
+    h1{ font-size:20px; margin:0; }
+    .sub{ color:var(--muted); margin-top:4px; font-size:13px; line-height:1.4; }
 
-#text{
-    background:#1e293b;
-    padding:15px;
-    border-radius:8px;
-    margin:20px 0;
-    min-height:80px;
-}
+    .pill{
+      border:1px solid var(--border);
+      background: rgba(255,255,255,.03);
+      padding:8px 10px;
+      border-radius:999px;
+      color:var(--muted);
+      font-size:13px;
+      white-space:nowrap;
+    }
 
-input{
-    width:100%;
-    padding:12px;
-    font-size:16px;
-    border-radius:8px;
-    border:none;
-}
+    .grid{
+      display:grid;
+      grid-template-columns: 1.15fr .85fr;
+      gap:14px;
+    }
+    @media (max-width: 900px){
+      .grid{ grid-template-columns: 1fr; }
+    }
 
-.stats{
-    display:flex;
-    justify-content:space-around;
-    margin-top:20px;
-}
-</style>
+    .card{
+      border:1px solid var(--border);
+      background: linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.02));
+      border-radius:var(--radius);
+      box-shadow: var(--shadow);
+      overflow:hidden;
+    }
+    .cardHead{
+      padding:14px 14px 0;
+      display:flex; justify-content:space-between; gap:10px; align-items:flex-start;
+    }
+    .cardBody{ padding:14px; }
+
+    .controls{
+      display:flex; gap:10px; flex-wrap:wrap; align-items:center;
+      margin-top:10px;
+    }
+    button{
+      border:1px solid var(--border);
+      background: rgba(255,255,255,.03);
+      color:var(--text);
+      padding:10px 12px;
+      border-radius:12px;
+      cursor:pointer;
+      font-weight:800;
+      transition:.15s transform;
+    }
+    button:hover{ transform: translateY(-1px); }
+    button:active{ transform: translateY(0); }
+    .blue{ background: rgba(59,130,246,.16); border-color: rgba(59,130,246,.40); }
+    .green{ background: rgba(34,197,94,.16); border-color: rgba(34,197,94,.40); }
+    .red{ background: rgba(239,68,68,.14); border-color: rgba(239,68,68,.40); }
+
+    .stats{
+      display:grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap:10px;
+      margin-top:12px;
+    }
+    @media(max-width:560px){
+      .stats{ grid-template-columns: repeat(2, 1fr); }
+    }
+    .stat{
+      border:1px solid var(--border);
+      background: rgba(0,0,0,.16);
+      border-radius:14px;
+      padding:12px;
+    }
+    .k{ font-size:12px; color:var(--muted); }
+    .v{ font-size:18px; font-weight:900; margin-top:4px; }
+
+    .typingBox{
+      margin-top:12px;
+      border:1px solid var(--border);
+      background: rgba(0,0,0,.16);
+      border-radius:16px;
+      overflow:hidden;
+    }
+    #text{
+      padding:14px 14px 0;
+      font-family:var(--mono);
+      font-size:15px;
+      line-height:1.7;
+      min-height:92px;
+      color: rgba(229,231,235,.95);
+      user-select:none;
+    }
+    .row{
+      display:flex; gap:10px; align-items:center;
+      border-top:1px solid var(--border);
+      padding:12px 14px 14px;
+    }
+    input{
+      width:100%;
+      border:1px solid var(--border);
+      background: rgba(15,23,42,.65);
+      color:var(--text);
+      padding:12px 12px;
+      border-radius:12px;
+      font-family:var(--mono);
+      font-size:15px;
+      outline:none;
+    }
+    .hint{
+      margin-top:10px;
+      color:var(--muted);
+      font-size:12px;
+      line-height:1.5;
+    }
+
+    /* ✅ Resultado final */
+    .result{
+      margin-top:12px;
+      border:1px solid var(--border);
+      background: rgba(255,255,255,.03);
+      border-radius:16px;
+      padding:12px;
+      display:none;
+      text-align:left;
+    }
+
+    /* ✅ Espaços para AdSense (containers) */
+    .adBox{
+      border:1px dashed rgba(255,255,255,.20);
+      border-radius:16px;
+      padding:12px;
+      background: rgba(0,0,0,.10);
+      color: var(--muted);
+      font-size:12px;
+      line-height:1.4;
+    }
+    .adTitle{ font-weight:900; color: rgba(229,231,235,.95); margin-bottom:6px; }
+  </style>
 </head>
+
 <body>
+  <div class="wrap">
+    <header>
+      <div class="brand">
+        <div class="logo" aria-hidden="true"></div>
+        <div>
+          <h1>Free Typing Practice & Test</h1>
+          <div class="sub">Practice without pressure, or run a 30s / 60s test. Track WPM and accuracy — no signup.</div>
+        </div>
+      </div>
+      <div class="pill">Best (60s): <strong id="best60Top">—</strong> WPM</div>
+    </header>
 
-<div class="container">
+    <div class="grid">
+      <!-- MAIN -->
+      <section class="card">
+        <div class="cardHead">
+          <div>
+            <div class="pill" id="modePill">Mode: <strong id="modeLabel">Practice</strong></div>
+            <div class="sub" style="margin-top:10px" id="modeDesc">
+              Start typing to begin. Practice mode has no timer.
+            </div>
+          </div>
+          <div class="pill" id="timePill">Time: <strong id="time">—</strong></div>
+        </div>
 
-<h1>Free Typing Practice & Test</h1>
+        <div class="cardBody">
+          <div class="controls">
+            <button class="blue" id="practiceBtn" type="button">Practice</button>
+            <button class="green" id="test30Btn" type="button">Test 30s</button>
+            <button class="green" id="test60Btn" type="button">Test 60s</button>
+            <button class="red" id="resetBtn" type="button">Reset</button>
+            <button id="newTextBtn" type="button">New Text</button>
+          </div>
 
-<div>
-<button class="blue" onclick="setMode('practice')">Practice</button>
-<button class="primary" onclick="setMode('30')">Test 30s</button>
-<button class="primary" onclick="setMode('60')">Test 60s</button>
-<button class="red" onclick="resetTest()">Reset</button>
-</div>
+          <div class="stats">
+            <div class="stat"><div class="k">WPM</div><div class="v" id="wpm">0</div></div>
+            <div class="stat"><div class="k">Accuracy</div><div class="v" id="accuracy">100%</div></div>
+            <div class="stat"><div class="k">Errors</div><div class="v" id="errors">0</div></div>
+            <div class="stat"><div class="k">Characters</div><div class="v" id="chars">0</div></div>
+          </div>
 
-<div id="text"></div>
+          <div class="typingBox">
+            <div id="text"></div>
+            <div class="row">
+              <input id="input" type="text" placeholder="Start typing here..." autocomplete="off" spellcheck="false" />
+            </div>
+          </div>
 
-<input type="text" id="input" placeholder="Start typing here..." oninput="checkTyping()">
+          <div class="result" id="resultBox"></div>
 
-<div class="stats">
-<div>Time: <span id="time">0</span></div>
-<div>WPM: <span id="wpm">0</span></div>
-<div>Accuracy: <span id="accuracy">100%</span></div>
-</div>
-<div class="stats" style="margin-top:10px;">
-  <div>Best 30s: <span id="best30">—</span></div>
-  <div>Best 60s: <span id="best60">—</span></div>
-  <div>Tests: <span id="tests">0</span></div>
-</div>
-</div>
+          <div class="hint">
+            Tip: Focus on accuracy first — speed follows. Your best scores are saved on this device.
+          </div>
+        </div>
+      </section>
 
-<script>
+      <!-- SIDEBAR -->
+      <aside class="card">
+        <div class="cardHead">
+          <div>
+            <div class="adTitle">Your Progress</div>
+            <div class="sub">Saved locally on your device.</div>
+          </div>
+          <div class="pill">Tests: <strong id="tests">0</strong></div>
+        </div>
+        <div class="cardBody">
+          <div class="stats" style="margin-top:0">
+            <div class="stat"><div class="k">Best 30s</div><div class="v"><span id="best30">—</span> WPM</div></div>
+            <div class="stat"><div class="k">Best 60s</div><div class="v"><span id="best60">—</span> WPM</div></div>
+            <div class="stat"><div class="k">Avg WPM</div><div class="v"><span id="avgWpm">—</span></div></div>
+            <div class="stat"><div class="k">Last Score</div><div class="v"><span id="lastScore">—</span></div></div>
+          </div>
 
-const texts = [
-"Typing is a powerful skill that improves productivity and focus.",
-"Practice every day and your speed will increase naturally.",
-"Accuracy is more important than speed at the beginning."
-];
+          <div style="margin-top:14px" class="adBox">
+            <div class="adTitle">Ad Space (Top Sidebar)</div>
+            Place your Google AdSense unit here after approval.
+            <br><br>
+            <!-- ✅ AD UNIT PLACEHOLDER -->
+            <!--
+            <ins class="adsbygoogle"
+              style="display:block"
+              data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
+              data-ad-slot="1234567890"
+              data-ad-format="auto"
+              data-full-width-responsive="true"></ins>
+            <script>
+              (adsbygoogle = window.adsbygoogle || []).push({});
+            </script>
+            -->
+          </div>
 
-let mode = "practice";
-let timer = null;
-let timeLeft = 0;
-let startTime = null;
-let totalTyped = 0;
-let correctTyped = 0;
-let correctTyped = 0;
+          <div style="margin-top:14px" class="adBox">
+            <div class="adTitle">Ad Space (Bottom Sidebar)</div>
+            Another optional AdSense unit placeholder.
+          </div>
+        </div>
+      </aside>
+    </div>
+  </div>
 
-// ---- Saved progress (localStorage) ----
-const STORAGE_KEY = "typing_site_progress_v1";
+  <script>
+    // ---------------- TEXTS ----------------
+    const texts = [
+      "Typing is a powerful skill that improves productivity and focus.",
+      "Practice every day and your speed will increase naturally.",
+      "Accuracy is more important than speed at the beginning.",
+      "Consistency beats intensity. Ten minutes daily can change your typing speed.",
+      "Stay relaxed. Light keystrokes and steady rhythm reduce mistakes."
+    ];
 
-function loadProgress(){
-  try{
-    return JSON.parse(localStorage.getItem(STORAGE_KEY)) || { best30: 0, best60: 0, tests: 0 };
-  }catch(e){
-    return { best30: 0, best60: 0, tests: 0 };
-  }
-}
+    // ---------------- STORAGE ----------------
+    const STORAGE_KEY = "typing_site_progress_v2";
+    function loadProgress(){
+      try{
+        return JSON.parse(localStorage.getItem(STORAGE_KEY)) || { best30:0, best60:0, tests:0, wpmSum:0, lastScore:null };
+      }catch(e){
+        return { best30:0, best60:0, tests:0, wpmSum:0, lastScore:null };
+      }
+    }
+    function saveProgress(data){
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+    }
 
-function saveProgress(data){
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
-}
+    // ---------------- ELEMENTS ----------------
+    const textEl = document.getElementById("text");
+    const inputEl = document.getElementById("input");
 
-function renderProgress(){
-  const p = loadProgress();
-  document.getElementById("best30").innerText = p.best30 ? p.best30 : "—";
-  document.getElementById("best60").innerText = p.best60 ? p.best60 : "—";
-  document.getElementById("tests").innerText = p.tests || 0;
-}
-const textElement = document.getElementById("text");
-const inputElement = document.getElementById("input");
+    const modeLabelEl = document.getElementById("modeLabel");
+    const modeDescEl = document.getElementById("modeDesc");
+    const timeEl = document.getElementById("time");
 
-function loadText(){
-    const random = texts[Math.floor(Math.random()*texts.length)];
-    textElement.innerText = random;
-}
+    const wpmEl = document.getElementById("wpm");
+    const accEl = document.getElementById("accuracy");
+    const errEl = document.getElementById("errors");
+    const charsEl = document.getElementById("chars");
 
-function setMode(selected){
-    resetTest();
-    mode = selected;
-    loadText();
+    const best30El = document.getElementById("best30");
+    const best60El = document.getElementById("best60");
+    const best60TopEl = document.getElementById("best60Top");
+    const testsEl = document.getElementById("tests");
+    const avgWpmEl = document.getElementById("avgWpm");
+    const lastScoreEl = document.getElementById("lastScore");
 
-    if(selected === "30"){
+    const resultBox = document.getElementById("resultBox");
+
+    // ---------------- STATE ----------------
+    let mode = "practice"; // practice | 30 | 60
+    let timer = null;
+    let timeLeft = 0;
+    let startTime = null;
+
+    let totalTyped = 0;
+    let correctTyped = 0;
+    let errors = 0;
+
+    // ---------------- UI HELPERS ----------------
+    function pickText(){
+      return texts[Math.floor(Math.random() * texts.length)];
+    }
+    function setText(){
+      textEl.innerText = pickText();
+    }
+
+    function renderProgress(){
+      const p = loadProgress();
+      best30El.innerText = p.best30 ? p.best30 : "—";
+      best60El.innerText = p.best60 ? p.best60 : "—";
+      best60TopEl.innerText = p.best60 ? p.best60 : "—";
+      testsEl.innerText = p.tests || 0;
+      avgWpmEl.innerText = p.tests ? Math.round((p.wpmSum || 0) / p.tests) : "—";
+      lastScoreEl.innerText = p.lastScore ? `${p.lastScore.wpm} WPM` : "—";
+    }
+
+    function setMode(newMode){
+      resetAll(false);
+      mode = newMode;
+
+      if(mode === "practice"){
+        modeLabelEl.innerText = "Practice";
+        modeDescEl.innerText = "Start typing to begin. Practice mode has no timer.";
+        timeEl.innerText = "—";
+      } else if(mode === "30"){
+        modeLabelEl.innerText = "Test 30s";
+        modeDescEl.innerText = "Timed test. Your result is saved when time runs out.";
         timeLeft = 30;
-    } else if(selected === "60"){
+        timeEl.innerText = `${timeLeft}s`;
+      } else {
+        modeLabelEl.innerText = "Test 60s";
+        modeDescEl.innerText = "Timed test. Your result is saved when time runs out.";
         timeLeft = 60;
-    } else {
-        timeLeft = 0;
-        renderProgress();
+        timeEl.innerText = `${timeLeft}s`;
+      }
+
+      resultBox.style.display = "none";
+      resultBox.innerHTML = "";
+      renderProgress();
+      inputEl.focus();
     }
 
-    document.getElementById("time").innerText = timeLeft;
-}
+    function updateLiveStats(){
+      const acc = totalTyped > 0 ? Math.round((correctTyped / totalTyped) * 100) : 100;
 
-function startTimer(){
-    if(mode === "practice") return;
+      // wpm live
+      let elapsedMin = 0;
+      if(startTime){
+        elapsedMin = (Date.now() - startTime) / 1000 / 60;
+      }
+      const wpm = elapsedMin > 0 ? Math.max(0, Math.round((correctTyped/5) / elapsedMin)) : 0;
 
-    timer = setInterval(()=>{
-        timeLeft--;
-        document.getElementById("time").innerText = timeLeft;
-        if(timeLeft <= 0){
-            clearInterval(timer);
-            inputElement.disabled = true;
+      wpmEl.innerText = wpm;
+      accEl.innerText = `${acc}%`;
+      errEl.innerText = errors;
+      charsEl.innerText = totalTyped;
+    }
+
+    function startIfNeeded(){
+      if(startTime) return;
+      startTime = Date.now();
+
+      if(mode === "30" || mode === "60"){
+        if(timer) return;
+        timer = setInterval(() => {
+          timeLeft--;
+          timeEl.innerText = `${timeLeft}s`;
+          if(timeLeft <= 0){
+            finishTest();
+          }
+        }, 1000);
+      }
+    }
+
+    function finishTest(){
+      if(timer) clearInterval(timer);
+      timer = null;
+      inputEl.disabled = true;
+
+      // Final calculation
+      const elapsedMin = (Date.now() - startTime) / 1000 / 60;
+      const finalWpm = elapsedMin > 0 ? Math.max(0, Math.round((correctTyped/5) / elapsedMin)) : 0;
+      const finalAcc = totalTyped > 0 ? Math.round((correctTyped / totalTyped) * 100) : 100;
+
+      // Save progress
+      const p = loadProgress();
+      p.tests = (p.tests || 0) + 1;
+      p.wpmSum = (p.wpmSum || 0) + finalWpm;
+      p.lastScore = { wpm: finalWpm, acc: finalAcc, mode: mode };
+
+      if(mode === "30"){
+        p.best30 = Math.max(p.best30 || 0, finalWpm);
+      } else if(mode === "60"){
+        p.best60 = Math.max(p.best60 || 0, finalWpm);
+      }
+
+      saveProgress(p);
+      renderProgress();
+
+      // Result box
+      resultBox.style.display = "block";
+      resultBox.innerHTML = `
+        <div style="font-weight:900; font-size:14px; margin-bottom:6px;">Test Complete</div>
+        <div style="color:var(--muted); font-size:13px; line-height:1.5;">
+          Mode: <strong>${mode === "30" ? "30 seconds" : "60 seconds"}</strong><br/>
+          WPM: <strong>${finalWpm}</strong><br/>
+          Accuracy: <strong>${finalAcc}%</strong><br/>
+          Errors: <strong>${errors}</strong><br/>
+          Characters: <strong>${totalTyped}</strong>
+        </div>
+        <div style="margin-top:10px; display:flex; gap:10px; flex-wrap:wrap;">
+          <button class="green" type="button" onclick="setMode('${mode}')">Try Again</button>
+          <button type="button" onclick="setMode('practice')">Go to Practice</button>
+        </div>
+      `;
+    }
+
+    function resetAll(pickNewText=true){
+      if(timer) clearInterval(timer);
+      timer = null;
+
+      inputEl.disabled = false;
+      inputEl.value = "";
+      startTime = null;
+
+      totalTyped = 0;
+      correctTyped = 0;
+      errors = 0;
+
+      wpmEl.innerText = "0";
+      accEl.innerText = "100%";
+      errEl.innerText = "0";
+      charsEl.innerText = "0";
+
+      if(pickNewText) setText();
+
+      if(mode === "30") { timeLeft = 30; timeEl.innerText = `${timeLeft}s`; }
+      if(mode === "60") { timeLeft = 60; timeEl.innerText = `${timeLeft}s`; }
+      if(mode === "practice") { timeEl.innerText = "—"; }
+
+      resultBox.style.display = "none";
+      resultBox.innerHTML = "";
+    }
+
+    // ---------------- EVENTS ----------------
+    document.getElementById("practiceBtn").addEventListener("click", () => setMode("practice"));
+    document.getElementById("test30Btn").addEventListener("click", () => setMode("30"));
+    document.getElementById("test60Btn").addEventListener("click", () => setMode("60"));
+    document.getElementById("resetBtn").addEventListener("click", () => resetAll(false));
+    document.getElementById("newTextBtn").addEventListener("click", () => resetAll(true));
+
+    inputEl.addEventListener("input", () => {
+      startIfNeeded();
+
+      const target = textEl.innerText;
+      const typed = inputEl.value;
+
+      totalTyped = typed.length;
+      correctTyped = 0;
+      errors = 0;
+
+      for(let i=0; i<typed.length; i++){
+        if(i >= target.length){
+          errors++;
+        }else if(typed[i] === target[i]){
+          correctTyped++;
+        }else{
+          errors++;
         }
-    },1000);
-}
+      }
 
-function checkTyping(){
-    if(!startTime){
-        startTime = new Date();
-        startTimer();
-    }
+      updateLiveStats();
 
-    const text = textElement.innerText;
-    const input = inputElement.value;
+      // If user finishes the sentence early during timed test, keep going with new text
+      if((mode === "30" || mode === "60") && typed.length >= target.length){
+        setText();
+        inputEl.value = "";
+        totalTyped = 0;
+        correctTyped = 0;
+        errors = 0;
+        updateLiveStats();
+      }
+    });
 
-    totalTyped = input.length;
-    correctTyped = 0;
-
-    for(let i=0;i<input.length;i++){
-        if(input[i] === text[i]){
-            correctTyped++;
-        }
-    }
-
-    let accuracy = totalTyped > 0 ? (correctTyped/totalTyped)*100 : 100;
-    document.getElementById("accuracy").innerText = accuracy.toFixed(0) + "%";
-
-    const timeElapsed = (new Date() - startTime) / 1000 / 60;
-    const wpm = timeElapsed > 0 ? (correctTyped/5) / timeElapsed : 0;
-    document.getElementById("wpm").innerText = Math.round(wpm);
-}
-
-function resetTest(){
-    clearInterval(timer);
-    timer = null;
-    inputElement.disabled = false;
-    inputElement.value = "";
-    startTime = null;
-    totalTyped = 0;
-    correctTyped = 0;
-    document.getElementById("wpm").innerText = "0";
-    document.getElementById("accuracy").innerText = "100%";
-    document.getElementById("time").innerText = "0";
-}
-
-loadText();
-renderProgress();
-</script>
-
+    // ---------------- INIT ----------------
+    setText();
+    renderProgress();
+    setMode("practice");
+  </script>
 </body>
 </html>
