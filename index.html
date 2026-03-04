@@ -553,7 +553,8 @@
     inputEl.addEventListener("input", () => {
       startIfNeeded();
 
-      const target = textEl.innerText;
+      const spans = textEl.querySelectorAll(".char");
+const target = Array.from(spans).map(s => s.textContent).join("");
       const typed = inputEl.value;
 
       totalTyped = typed.length;
@@ -571,6 +572,24 @@
       }
 
       updateLiveStats();
+      spans.forEach(s => s.classList.remove("correct","incorrect","cursor"));
+
+for(let i=0;i<spans.length;i++){
+  const typedCh = typed[i];
+  if(typedCh == null) break;
+
+  if(typedCh === target[i]){
+    spans[i].classList.add("correct");
+  }else{
+    spans[i].classList.add("incorrect");
+  }
+}
+
+if(spans.length > 0){
+  const cursorIndex = Math.min(typed.length, spans.length - 1);
+  spans[cursorIndex].classList.add("cursor");
+}
+  
 
       // If user finishes the sentence early during timed test, keep going with new text
       if((mode === "30" || mode === "60") && typed.length >= target.length){
