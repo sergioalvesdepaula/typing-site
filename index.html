@@ -179,7 +179,21 @@
       display:none;
       text-align:left;
     }
+.timerBar{
+  width:100%;
+  height:6px;
+  background:rgba(255,255,255,0.08);
+  border-radius:6px;
+  overflow:hidden;
+  margin-top:10px;
+}
 
+.timerFill{
+  height:100%;
+  width:100%;
+  background:linear-gradient(90deg,#22c55e,#3b82f6);
+  transition:width 1s linear;
+}
     /* ✅ Espaços para AdSense (containers) */
     .adBox{
       border:1px dashed rgba(255,255,255,.20);
@@ -278,6 +292,9 @@
               <input id="input" type="text" placeholder="Start typing here..." autocomplete="off" spellcheck="false" />
             </div>
           </div>
+          <div class="timerBar">
+  <div class="timerFill" id="timerFill"></div>
+</div>
 
           <div class="result" id="resultBox"></div>
 
@@ -375,7 +392,7 @@
     const lastScoreEl = document.getElementById("lastScore");
 
     const resultBox = document.getElementById("resultBox");
-
+const timerFill = document.getElementById("timerFill");
     // ---------------- STATE ----------------
     let mode = "practice"; // practice | 30 | 60
     let timer = null;
@@ -475,6 +492,14 @@
         timer = setInterval(() => {
           timeLeft--;
           timeEl.innerText = `${timeLeft}s`;
+if(mode === "30"){
+  timerFill.style.width = (timeLeft / 30 * 100) + "%";
+}
+
+if(mode === "60"){
+  timerFill.style.width = (timeLeft / 60 * 100) + "%";
+}
+          
           if(timeLeft <= 0){
             finishTest();
           }
