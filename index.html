@@ -371,8 +371,20 @@
       return texts[Math.floor(Math.random() * texts.length)];
     }
     function setText(){
-      textEl.innerText = pickText();
-    }
+  const t = pickText();
+
+  textEl.innerHTML = "";
+
+  for(const ch of t){
+    const span = document.createElement("span");
+    span.className = "char";
+    span.textContent = ch;
+    textEl.appendChild(span);
+  }
+
+  const first = textEl.querySelector(".char");
+  if(first) first.classList.add("cursor");
+}
 
     function renderProgress(){
       const p = loadProgress();
