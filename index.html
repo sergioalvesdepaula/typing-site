@@ -210,6 +210,7 @@
    /* Highlight das letras digitadas */
 .char{
   opacity:0.95;
+  display:inline-block; /* 🔥 deixa underline e cursor muito mais visíveis */
 }
 
 .char.correct{
@@ -389,20 +390,28 @@
     function pickText(){
       return texts[Math.floor(Math.random() * texts.length)];
     }
-    function setText(){
+   function setText(){
+
   const t = pickText();
 
   textEl.innerHTML = "";
 
   for(const ch of t){
+
     const span = document.createElement("span");
     span.className = "char";
     span.textContent = ch;
+
     textEl.appendChild(span);
+
   }
 
-  const first = textEl.querySelector(".char");
-  if(first) first.classList.add("cursor");
+  const spans = textEl.querySelectorAll(".char");
+
+  if(spans.length > 0){
+    spans[0].classList.add("cursor");
+  }
+
 }
 
     function renderProgress(){
