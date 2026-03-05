@@ -315,39 +315,51 @@
           <div class="pill">Tests: <strong id="tests">0</strong></div>
         </div>
         <div class="cardBody">
-          <div class="stats" style="margin-top:0">
-            <div class="stat"><div class="k">Best 30s</div><div class="v"><span id="best30">—</span> WPM</div></div>
-            <div class="stat"><div class="k">Best 60s</div><div class="v"><span id="best60">—</span> WPM</div></div>
-            <div class="stat"><div class="k">Avg WPM</div><div class="v"><span id="avgWpm">—</span></div></div>
-            <div class="stat"><div class="k">Last Score</div><div class="v"><span id="lastScore">—</span></div></div>
-          </div>
 
-          <div style="margin-top:14px" class="adBox">
-            <div class="adTitle">Ad Space (Top Sidebar)</div>
-            Place your Google AdSense unit here after approval.
-            <br><br>
-            <!-- ✅ AD UNIT PLACEHOLDER -->
-            <!--
-            <ins class="adsbygoogle"
-              style="display:block"
-              data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
-              data-ad-slot="1234567890"
-              data-ad-format="auto"
-              data-full-width-responsive="true"></ins>
-            <script>
-              (adsbygoogle = window.adsbygoogle || []).push({});
-            </script>
-            -->
-          </div>
+<div class="stats" style="margin-top:0">
+  <div class="stat"><div class="k">Best 30s</div><div class="v"><span id="best30">—</span> WPM</div></div>
+  <div class="stat"><div class="k">Best 60s</div><div class="v"><span id="best60">—</span> WPM</div></div>
+  <div class="stat"><div class="k">Avg WPM</div><div class="v"><span id="avgWpm">—</span></div></div>
+  <div class="stat"><div class="k">Last Score</div><div class="v"><span id="lastScore">—</span></div></div>
+</div>
 
-          <div style="margin-top:14px" class="adBox">
-            <div class="adTitle">Ad Space (Bottom Sidebar)</div>
-            Another optional AdSense unit placeholder.
-          </div>
-        </div>
-      </aside>
-    </div>
+
+<!-- Top Typists -->
+<div style="margin-top:14px" class="adBox">
+  <div class="adTitle">Top Typists Today</div>
+
+  <table style="width:100%; border-collapse:collapse; font-size:13px;">
+    <tbody id="topToday"></tbody>
+  </table>
+
+  <div style="margin-top:10px; color:rgba(229,231,235,.75); font-size:12px;">
+    *Demo leaderboard (public leaderboard requires database).
   </div>
+</div>
+
+
+<!-- Performance Chart -->
+<div style="margin-top:14px" class="adBox">
+  <div class="adTitle">Performance Chart</div>
+  <canvas id="perfChart" width="360" height="160" style="width:100%; height:auto; border-radius:12px;"></canvas>
+  <div style="margin-top:8px; color:rgba(229,231,235,.75); font-size:12px;">
+    Last tests WPM history (saved locally).
+  </div>
+</div>
+
+
+<!-- Ads -->
+<div style="margin-top:14px" class="adBox">
+  <div class="adTitle">Ad Space (Top Sidebar)</div>
+  Place your Google AdSense unit here after approval.
+</div>
+
+<div style="margin-top:14px" class="adBox">
+  <div class="adTitle">Ad Space (Bottom Sidebar)</div>
+  Another optional AdSense unit placeholder.
+</div>
+
+</div>
 
   <script>
     // ---------------- TEXTS ----------------
