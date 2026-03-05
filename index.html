@@ -570,23 +570,38 @@ if(mode === "60"){
 
       if(pickNewText) setText();
 
-      if(mode === "30") { timeLeft = 30; timeEl.innerText = `${timeLeft}s`; }
-      if(mode === "60") { timeLeft = 60; timeEl.innerText = `${timeLeft}s`; }
-      if(mode === "practice") { timeEl.innerText = "—"; }
+      if(mode === "30") { 
+  timeLeft = 30; 
+  timeEl.innerText = `${timeLeft}s`; 
+}
 
-      resultBox.style.display = "none";
-      resultBox.innerHTML = "";
-    }
+if(mode === "60") { 
+  timeLeft = 60; 
+  timeEl.innerText = `${timeLeft}s`; 
+}
 
-    // ---------------- EVENTS ----------------
-    document.getElementById("practiceBtn").addEventListener("click", () => setMode("practice"));
-    document.getElementById("test30Btn").addEventListener("click", () => setMode("30"));
-    document.getElementById("test60Btn").addEventListener("click", () => setMode("60"));
-    document.getElementById("resetBtn").addEventListener("click", () => resetAll(false));
-    document.getElementById("newTextBtn").addEventListener("click", () => resetAll(true));
+if(mode === "practice") { 
+  timeEl.innerText = "—"; 
+}
 
-    inputEl.addEventListener("input", () => {
-      startIfNeeded();
+resultBox.style.display = "none";
+resultBox.innerHTML = "";
+}
+
+// permite digitar em qualquer lugar da página
+document.addEventListener("keydown",(e)=>{
+  inputEl.focus();
+});
+
+// ---------------- EVENTS ----------------
+document.getElementById("practiceBtn").addEventListener("click", () => setMode("practice"));
+document.getElementById("test30Btn").addEventListener("click", () => setMode("30"));
+document.getElementById("test60Btn").addEventListener("click", () => setMode("60"));
+document.getElementById("resetBtn").addEventListener("click", () => resetAll(false));
+document.getElementById("newTextBtn").addEventListener("click", () => resetAll(true));
+
+inputEl.addEventListener("input", () => {
+  startIfNeeded();
 
       const spans = textEl.querySelectorAll(".char");
 const target = Array.from(spans).map(s => s.textContent).join("");
