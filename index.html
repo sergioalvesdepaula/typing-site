@@ -359,8 +359,12 @@
   Another optional AdSense unit placeholder.
 </div>
 
-</div>
+        </div> <!-- fecha .cardBody -->
+      </aside> <!-- fecha SIDEBAR -->
+    </div> <!-- fecha .grid -->
+  </div> <!-- fecha .wrap -->
 
+    // seu JS...
   <script>
     // ---------------- TEXTS ----------------
     const texts = [
@@ -383,7 +387,6 @@
     function saveProgress(data){
       localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
     }
-
     // ---------------- ELEMENTS ----------------
     const textEl = document.getElementById("text");
     const inputEl = document.getElementById("input");
@@ -406,6 +409,11 @@
 
     const resultBox = document.getElementById("resultBox");
 const timerFill = document.getElementById("timerFill");
+    const topTodayEl = document.getElementById("topToday");
+const perfCanvas = document.getElementById("perfChart");
+const perfCtx = perfCanvas ? perfCanvas.getContext("2d") : null;
+
+const HISTORY_KEY = "typing_wpm_history_v1";
     // ---------------- STATE ----------------
     let mode = "practice"; // practice | 30 | 60
     let timer = null;
@@ -443,7 +451,231 @@ const timerFill = document.getElementById("timerFill");
   }
 
 }
+function renderProgress(){
+      const p = loadProgress();
+      best30El.innerText = p.best30 ? p.best30 : "—";
+      best60El.innerText = p.best60 ? p.best60 : "—";
+      best60TopEl.innerText = p.best60 ? p.best60 : "—";
+      testsEl.innerText = p.tests || 0;
+      avgWpmEl.innerText = p.tests ? Math.round((p.wpmSum || 0) / p.tests) : "—";
+      lastScoreEl.innerText = p.lastScore ? `${p.lastScore.wpm} WPM` : "—";
+    }
 
+    function setMode(newMode){
+      resetAll(false);
+      mode = newMode;
+
+      if(mode === "practice"){
+        modeLabelEl.innerText = "Practice";
+        modeDescEl.innerText = "Start typing to begin. Practice mode has no timer.";
+        timeEl.innerText = "—";
+      } else if(mode === "30"){
+        modeLabelEl.innerText = "Test 30s";
+        modeDescEl.innerText = "Timed test. Your result is saved when time runs out.";
+        timeLeft = 30;
+        timeEl.innerText = `${timeLeft}s`;
+      } else {
+        modeLabelEl.innerText = "Test 60s";
+        modeDescEl.innerText = "Timed test. Your result is saved when time runs out.";
+        timeLeft = 60;
+        timeEl.innerText = `${timeLeft}s`;
+      }
+
+      resultBox.style.display = "none";
+      resultBox.innerHTML = "";
+      renderProgress();
+      inputEl.focus();
+    }
+
+    function updateLiveStats(){
+      const acc = totalTyped > 0 ? Math.round((correctTyped / totalTyped) * 100) : 100;
+
+      // wpm live
+      let elapsedMin = 0;
+      if(startTime){
+        elapsedMin = (Date.now() - startTime) / 1000 / 60;
+      }
+      const wpm = elapsedMin > 0 ? Math.max(0, Math.round((correctTyped/5) / elapsedMin)) : 0;
+
+      wpmEl.innerText = wpm;
+      accEl.innerText = `${acc}%`;
+      errEl.innerText = errors;
+      charsEl.innerText = totalTyped;
+    }
+
+    function startIfNeeded(){
+      if(startTime) return;
+      startTime = Date.now();
+
+      if(mode === "30" || mode === "60"){
+        if(timer) return;
+        timer = setInterval(() => {
+          timeLeft--;
+          timeEl.innerText = `${timeLeft}s`;
+if(mode === "30"){
+  timerFill.style.width = (timeLeft / 30 * 100) + "%";
+}
+
+if(mode === "60"){
+  timerFill.style.width = (timeLeft / 60 * 100) + "%";
+}
+          
+          if(timeLeft <= 0){
+            finishTest();
+          }
+        }, 1000);
+      }
+    }
+
+    function finishTest(){
+      if(timer) clearInterval(timer);
+      timer = null;
+      inputEl.disabled = true;
+
+      // Final calculation
+      const elapsedMin = (Date.now() - startTime) / 1000 / 60;
+      const finalWpm = elapsedMin > 0 ? Math.max(0, Math.round((correctTyped/5) / elapsedMin)) : 0;
+      const finalAcc = totalTyped > 0 ? Math.round((correctTyped / totalTyped) * 100) : 100;
+
+      // Save progress
+      const p = loadProgress();
+      p.tests = (p.tests || 0) + 1;
+      p.wpmSum = (p.wpmSum || 0) + finalWpm;
+      p.lastScore = { wpm: finalWpm, acc: finalAcc, mode: mode };
+
+      if(mode === "30"){
+        p.best30 = Math.max(p.best30 || 0, finalWpm);
+      } else if(mode === "60"){
+        p.best60 = Math.max(p.best60 || 0, finalWpm);
+      }
+
+      saveProgress(p);
+      renderProgress();
+
+      // Result box
+      resultBox.style.display = "block";
+      resultBox.innerHTML = `
+        <div style="font-weight:900; font-size:14px; margin-bottom:6px;">Test Complete</div>
+        <div style="color:var(--muted); font-size:13px; line-height:1.5;">
+          Mode: <strong>${mode === "30" ? "30 seconds" : "60 seconds"}</strong><br/>
+          WPM: <strong>${finalWpm}</strong><br/>
+          Accuracy: <strong>${finalAcc}%</strong><br/>
+          Errors: <strong>${errors}</strong><br/>
+          Characters: <strong>${totalTyped}</strong>
+        </div>
+        <div style="margin-top:10px; display:flex; gap:10px; flex-wrap:wrap;">
+          <button class="green" type="button" onclick="setMode('${mode}')">Try Again</button>
+          <button type="button" onclick="setMode('practice')">Go to Practice</button>
+        </div>
+      `;
+    }
+
+    function resetAll(pickNewText=true){
+      if(timer) clearInterval(timer);
+      timer = null;
+
+      inputEl.disabled = false;
+      inputEl.value = "";
+      startTime = null;
+
+      totalTyped = 0;
+      correctTyped = 0;
+      errors = 0;
+
+      wpmEl.innerText = "0";
+      accEl.innerText = "100%";
+      errEl.innerText = "0";
+      charsEl.innerText = "0";
+
+      if(pickNewText) setText();
+
+      if(mode === "30") { 
+  timeLeft = 30; 
+  timeEl.innerText = `${timeLeft}s`; 
+}
+
+if(mode === "60") { 
+  timeLeft = 60; 
+  timeEl.innerText = `${timeLeft}s`; 
+}
+
+if(mode === "practice") { 
+  timeEl.innerText = "—"; 
+}
+
+resultBox.style.display = "none";
+resultBox.innerHTML = "";
+}
+
+// permite digitar em qualquer lugar da página
+document.addEventListener("keydown",(e)=>{
+  inputEl.focus();
+});
+
+// ---------------- EVENTS ----------------
+document.getElementById("practiceBtn").addEventListener("click", () => setMode("practice"));
+document.getElementById("test30Btn").addEventListener("click", () => setMode("30"));
+document.getElementById("test60Btn").addEventListener("click", () => setMode("60"));
+document.getElementById("resetBtn").addEventListener("click", () => resetAll(false));
+document.getElementById("newTextBtn").addEventListener("click", () => resetAll(true));
+
+inputEl.addEventListener("input", () => {
+  startIfNeeded();
+
+      const spans = textEl.querySelectorAll(".char");
+const target = Array.from(spans).map(s => s.textContent).join("");
+      const typed = inputEl.value;
+
+      totalTyped = typed.length;
+      correctTyped = 0;
+      errors = 0;
+
+      for(let i=0; i<typed.length; i++){
+        if(i >= target.length){
+          errors++;
+        }else if(typed[i] === target[i]){
+          correctTyped++;
+        }else{
+          errors++;
+        }
+      }
+
+      updateLiveStats();
+      spans.forEach(s => s.classList.remove("correct","incorrect","cursor"));
+
+for(let i=0;i<spans.length;i++){
+  const typedCh = typed[i];
+  if(typedCh == null) break;
+
+  if(typedCh === target[i]){
+    spans[i].classList.add("correct");
+  }else{
+    spans[i].classList.add("incorrect");
+  }
+}
+
+if(spans.length > 0){
+  const cursorIndex = Math.min(typed.length, spans.length - 1);
+  spans[cursorIndex].classList.add("cursor");
+}
+  
+
+      // If user finishes the sentence early during timed test, keep going with new text
+      if((mode === "30" || mode === "60") && typed.length >= target.length){
+        setText();
+        inputEl.value = "";
+        totalTyped = 0;
+        correctTyped = 0;
+        errors = 0;
+        updateLiveStats();
+      }
+    });
+
+    // ---------------- INIT ----------------
+    setText();
+    renderProgress();
+    setMode("practice");
+  </script>
     function renderProgress(){
       const p = loadProgress();
       best30El.innerText = p.best30 ? p.best30 : "—";
