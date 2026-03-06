@@ -451,57 +451,6 @@ const HISTORY_KEY = "typing_wpm_history_v1";
   }
 
 }
-function renderProgress(){
-      const p = loadProgress();
-      best30El.innerText = p.best30 ? p.best30 : "—";
-      best60El.innerText = p.best60 ? p.best60 : "—";
-      best60TopEl.innerText = p.best60 ? p.best60 : "—";
-      testsEl.innerText = p.tests || 0;
-      avgWpmEl.innerText = p.tests ? Math.round((p.wpmSum || 0) / p.tests) : "—";
-      lastScoreEl.innerText = p.lastScore ? `${p.lastScore.wpm} WPM` : "—";
-    }
-
-    function setMode(newMode){
-      resetAll(false);
-      mode = newMode;
-
-      if(mode === "practice"){
-        modeLabelEl.innerText = "Practice";
-        modeDescEl.innerText = "Start typing to begin. Practice mode has no timer.";
-        timeEl.innerText = "—";
-      } else if(mode === "30"){
-        modeLabelEl.innerText = "Test 30s";
-        modeDescEl.innerText = "Timed test. Your result is saved when time runs out.";
-        timeLeft = 30;
-        timeEl.innerText = `${timeLeft}s`;
-      } else {
-        modeLabelEl.innerText = "Test 60s";
-        modeDescEl.innerText = "Timed test. Your result is saved when time runs out.";
-        timeLeft = 60;
-        timeEl.innerText = `${timeLeft}s`;
-      }
-
-      resultBox.style.display = "none";
-      resultBox.innerHTML = "";
-      renderProgress();
-      inputEl.focus();
-    }
-
-    function updateLiveStats(){
-      const acc = totalTyped > 0 ? Math.round((correctTyped / totalTyped) * 100) : 100;
-
-      // wpm live
-      let elapsedMin = 0;
-      if(startTime){
-        elapsedMin = (Date.now() - startTime) / 1000 / 60;
-      }
-      const wpm = elapsedMin > 0 ? Math.max(0, Math.round((correctTyped/5) / elapsedMin)) : 0;
-
-      wpmEl.innerText = wpm;
-      accEl.innerText = `${acc}%`;
-      errEl.innerText = errors;
-      charsEl.innerText = totalTyped;
-    }
 
     function startIfNeeded(){
       if(startTime) return;
