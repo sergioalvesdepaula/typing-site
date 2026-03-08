@@ -633,20 +633,20 @@
     }
 
     function updateLiveStats(){
-      const acc = totalTyped > 0 ? Math.round((correctTyped / totalTyped) * 100) : 100;
-      let elapsedMin = 0;
+  const acc = totalTyped > 0 ? Math.round((correctTyped / totalTyped) * 100) : 100;
+  let elapsedMin = 0;
 
-      if(startTime){
-        elapsedMin = (Date.now() - startTime) / 1000 / 60;
-      }
+  if(startTime){
+    elapsedMin = (Date.now() - startTime) / 1000 / 60;
+  }
 
-      const wpm = elapsedMin > 0 ? Math.max(0, Math.round((correctTyped / 5) / elapsedMin)) : 0;
+  const wpm = elapsedMin > 0 ? Math.max(0, Math.round((correctTyped / 5) / elapsedMin)) : 0;
 
-      wpmEl.innerText = wpm;
-      accEl.innerText = `${acc}%`;
-      errEl.innerText = errors;
-      charsEl.innerText = totalTyped;
-    }
+  wpmEl.innerText = wpm;
+  accEl.innerText = `${acc}%`;
+  errEl.innerText = errors;
+  charsEl.innerText = totalTyped;
+}
 
     function startIfNeeded(){
       if(startTime) return;
