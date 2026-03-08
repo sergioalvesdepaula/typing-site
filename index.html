@@ -359,11 +359,13 @@
 
         <div class="cardBody">
           <div class="stats" style="margin-top:0">
-            <div class="stat"><div class="k">Best 30s</div><div class="v"><span id="best30">—</span> WPM</div></div>
-            <div class="stat"><div class="k">Best 60s</div><div class="v"><span id="best60">—</span> WPM</div></div>
-            <div class="stat"><div class="k">Avg WPM</div><div class="v"><span id="avgWpm">—</span></div></div>
-            <div class="stat"><div class="k">Last Score</div><div class="v"><span id="lastScore">—</span></div></div>
-          </div>
+  <div class="stat"><div class="k">Best 30s</div><div class="v"><span id="best30">—</span> WPM</div></div>
+  <div class="stat"><div class="k">Best 60s</div><div class="v"><span id="best60">—</span> WPM</div></div>
+  <div class="stat"><div class="k">Best 2m</div><div class="v"><span id="best120">—</span> WPM</div></div>
+  <div class="stat"><div class="k">Best 5m</div><div class="v"><span id="best300">—</span> WPM</div></div>
+  <div class="stat"><div class="k">Avg WPM</div><div class="v"><span id="avgWpm">—</span></div></div>
+  <div class="stat"><div class="k">Last Score</div><div class="v"><span id="lastScore">—</span></div></div>
+</div>
 
           <div style="margin-top:14px" class="adBox">
             <div class="adTitle">Top Typists Today</div>
@@ -412,24 +414,28 @@
     const HISTORY_KEY = "typing_wpm_history_v1";
 
     function loadProgress(){
-      try{
-        return JSON.parse(localStorage.getItem(STORAGE_KEY)) || {
-          best30:0,
-          best60:0,
-          tests:0,
-          wpmSum:0,
-          lastScore:null
-        };
-      }catch(e){
-        return {
-          best30:0,
-          best60:0,
-          tests:0,
-          wpmSum:0,
-          lastScore:null
-        };
-      }
-    }
+  try{
+    return JSON.parse(localStorage.getItem(STORAGE_KEY)) || {
+      best30:0,
+      best60:0,
+      best120:0,
+      best300:0,
+      tests:0,
+      wpmSum:0,
+      lastScore:null
+    };
+  }catch(e){
+    return {
+      best30:0,
+      best60:0,
+      best120:0,
+      best300:0,
+      tests:0,
+      wpmSum:0,
+      lastScore:null
+    };
+  }
+}
 
     function saveProgress(data){
       localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
@@ -468,11 +474,13 @@
     const charsEl = document.getElementById("chars");
 
     const best30El = document.getElementById("best30");
-    const best60El = document.getElementById("best60");
-    const best60TopEl = document.getElementById("best60Top");
-    const testsEl = document.getElementById("tests");
-    const avgWpmEl = document.getElementById("avgWpm");
-    const lastScoreEl = document.getElementById("lastScore");
+const best60El = document.getElementById("best60");
+const best120El = document.getElementById("best120");
+const best300El = document.getElementById("best300");
+const best60TopEl = document.getElementById("best60Top");
+const testsEl = document.getElementById("tests");
+const avgWpmEl = document.getElementById("avgWpm");
+const lastScoreEl = document.getElementById("lastScore");
 
     const resultBox = document.getElementById("resultBox");
     const timerFill = document.getElementById("timerFill");
@@ -594,17 +602,19 @@
     }
 
     function renderProgress(){
-      const p = loadProgress();
-      best30El.innerText = p.best30 ? p.best30 : "—";
-      best60El.innerText = p.best60 ? p.best60 : "—";
-      best60TopEl.innerText = p.best60 ? p.best60 : "—";
-      testsEl.innerText = p.tests || 0;
-      avgWpmEl.innerText = p.tests ? Math.round((p.wpmSum || 0) / p.tests) : "—";
-      lastScoreEl.innerText = p.lastScore ? `${p.lastScore.wpm} WPM` : "—";
+  const p = loadProgress();
+  best30El.innerText = p.best30 ? p.best30 : "—";
+  best60El.innerText = p.best60 ? p.best60 : "—";
+  best120El.innerText = p.best120 ? p.best120 : "—";
+  best300El.innerText = p.best300 ? p.best300 : "—";
+  best60TopEl.innerText = p.best60 ? p.best60 : "—";
+  testsEl.innerText = p.tests || 0;
+  avgWpmEl.innerText = p.tests ? Math.round((p.wpmSum || 0) / p.tests) : "—";
+  lastScoreEl.innerText = p.lastScore ? `${p.lastScore.wpm} WPM` : "—";
 
-      renderTopToday();
-      drawPerfChart();
-    }
+  renderTopToday();
+  drawPerfChart();
+}
 
     function setMode(newMode){
   resetAll(false);
