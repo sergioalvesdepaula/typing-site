@@ -313,13 +313,14 @@
 
         <div class="cardBody">
           <div class="controls">
-            <button class="blue" id="practiceBtn" type="button">Practice</button>
-            <button class="green" id="test30Btn" type="button">Test 30s</button>
-            <button class="green" id="test60Btn" type="button">Test 60s</button>
-            <button class="red" id="resetBtn" type="button">Reset</button>
-            <button id="newTextBtn" type="button">New Text</button>
-          </div>
-
+  <button class="blue" id="practiceBtn" type="button">Practice</button>
+  <button class="green" id="test30Btn" type="button">Test 30s</button>
+  <button class="green" id="test60Btn" type="button">Test 60s</button>
+  <button class="green" id="test2mBtn" type="button">Test 2m</button>
+  <button class="green" id="test5mBtn" type="button">Test 5m</button>
+  <button class="red" id="resetBtn" type="button">Reset</button>
+  <button id="newTextBtn" type="button">New Text</button>
+</div>
           <div class="stats">
             <div class="stat"><div class="k">WPM</div><div class="v" id="wpm">0</div></div>
             <div class="stat"><div class="k">Accuracy</div><div class="v" id="accuracy">100%</div></div>
@@ -606,31 +607,41 @@
     }
 
     function setMode(newMode){
-      resetAll(false);
-      mode = newMode;
+  resetAll(false);
+  mode = newMode;
 
-      if(mode === "practice"){
-        modeLabelEl.innerText = "Practice";
-        modeDescEl.innerText = "Start typing to begin. Practice mode has no timer.";
-        timeEl.innerText = "—";
-      } else if(mode === "30"){
-        modeLabelEl.innerText = "Test 30s";
-        modeDescEl.innerText = "Timed test. Your result is saved when time runs out.";
-        timeLeft = 30;
-        timeEl.innerText = `${timeLeft}s`;
-      } else {
-        modeLabelEl.innerText = "Test 60s";
-        modeDescEl.innerText = "Timed test. Your result is saved when time runs out.";
-        timeLeft = 60;
-        timeEl.innerText = `${timeLeft}s`;
-      }
+  if(mode === "practice"){
+    modeLabelEl.innerText = "Practice";
+    modeDescEl.innerText = "Start typing to begin. Practice mode has no timer.";
+    timeEl.innerText = "—";
+  } else if(mode === "30"){
+    modeLabelEl.innerText = "Test 30s";
+    modeDescEl.innerText = "Timed test. Your result is saved when time runs out.";
+    timeLeft = 30;
+    timeEl.innerText = `${timeLeft}s`;
+  } else if(mode === "60"){
+    modeLabelEl.innerText = "Test 60s";
+    modeDescEl.innerText = "Timed test. Your result is saved when time runs out.";
+    timeLeft = 60;
+    timeEl.innerText = `${timeLeft}s`;
+  } else if(mode === "120"){
+    modeLabelEl.innerText = "Test 2m";
+    modeDescEl.innerText = "Timed test. Your result is saved when time runs out.";
+    timeLeft = 120;
+    timeEl.innerText = `${timeLeft}s`;
+  } else if(mode === "300"){
+    modeLabelEl.innerText = "Test 5m";
+    modeDescEl.innerText = "Timed test. Your result is saved when time runs out.";
+    timeLeft = 300;
+    timeEl.innerText = `${timeLeft}s`;
+  }
 
-      timerFill.style.width = "100%";
-      resultBox.style.display = "none";
-      resultBox.innerHTML = "";
-      renderProgress();
-      inputEl.focus();
-    }
+  timerFill.style.width = "100%";
+  resultBox.style.display = "none";
+  resultBox.innerHTML = "";
+  renderProgress();
+  inputEl.focus();
+}
 
     function updateLiveStats(){
   const acc = totalTyped > 0 ? Math.round((correctTyped / totalTyped) * 100) : 100;
@@ -649,30 +660,33 @@
 }
 
     function startIfNeeded(){
-      if(startTime) return;
-      startTime = Date.now();
+  if(startTime) return;
+  startTime = Date.now();
 
-      if(mode === "30" || mode === "60"){
-        if(timer) return;
+  if(mode === "30" || mode === "60" || mode === "120" || mode === "300"){
+    if(timer) return;
 
-        timer = setInterval(() => {
-          timeLeft--;
-          timeEl.innerText = `${timeLeft}s`;
+    timer = setInterval(() => {
+      timeLeft--;
+      timeEl.innerText = `${timeLeft}s`;
 
-          if(mode === "30"){
-            timerFill.style.width = (timeLeft / 30 * 100) + "%";
-          }
+      let totalTime = 0;
 
-          if(mode === "60"){
-            timerFill.style.width = (timeLeft / 60 * 100) + "%";
-          }
+      if(mode === "30") totalTime = 30;
+      if(mode === "60") totalTime = 60;
+      if(mode === "120") totalTime = 120;
+      if(mode === "300") totalTime = 300;
 
-          if(timeLeft <= 0){
-            finishTest();
-          }
-        }, 1000);
+      if(totalTime > 0){
+        timerFill.style.width = (timeLeft / totalTime * 100) + "%";
       }
-    }
+
+      if(timeLeft <= 0){
+        finishTest();
+      }
+    }, 1000);
+  }
+}
 
     function finishTest(){
       if(timer) clearInterval(timer);
@@ -689,10 +703,14 @@
       p.lastScore = { wpm: finalWpm, acc: finalAcc, mode: mode };
 
       if(mode === "30"){
-        p.best30 = Math.max(p.best30 || 0, finalWpm);
-      } else if(mode === "60"){
-        p.best60 = Math.max(p.best60 || 0, finalWpm);
-      }
+  p.best30 = Math.max(p.best30 || 0, finalWpm);
+} else if(mode === "60"){
+  p.best60 = Math.max(p.best60 || 0, finalWpm);
+} else if(mode === "120"){
+  p.best120 = Math.max(p.best120 || 0, finalWpm);
+} else if(mode === "300"){
+  p.best300 = Math.max(p.best300 || 0, finalWpm);
+}
 
       saveProgress(p);
       addHistoryPoint({ wpm: finalWpm, acc: finalAcc, ts: Date.now(), mode: mode });
@@ -707,7 +725,12 @@
               ${finalWpm} <span style="font-size:16px; color:var(--muted); font-weight:900;">WPM</span>
             </div>
             <div style="margin-top:8px; color:rgba(229,231,235,.85); font-size:13px;">
-              Accuracy: <strong>${finalAcc}%</strong> · Errors: <strong>${errors}</strong> · Mode: <strong>${mode === "30" ? "30s" : "60s"}</strong>
+              Accuracy: <strong>${finalAcc}%</strong> · Errors: <strong>${errors}</strong> · Mode: <strong>${
+  mode === "30" ? "30s" :
+  mode === "60" ? "60s" :
+  mode === "120" ? "2m" :
+  mode === "300" ? "5m" : "Practice"
+}</strong>
             </div>
           </div>
 
@@ -739,18 +762,28 @@
       if(pickNewText) setText();
 
       if(mode === "30"){
-        timeLeft = 30;
-        timeEl.innerText = `${timeLeft}s`;
-      }
+  timeLeft = 30;
+  timeEl.innerText = `${timeLeft}s`;
+}
 
-      if(mode === "60"){
-        timeLeft = 60;
-        timeEl.innerText = `${timeLeft}s`;
-      }
+if(mode === "60"){
+  timeLeft = 60;
+  timeEl.innerText = `${timeLeft}s`;
+}
 
-      if(mode === "practice"){
-        timeEl.innerText = "—";
-      }
+if(mode === "120"){
+  timeLeft = 120;
+  timeEl.innerText = `${timeLeft}s`;
+}
+
+if(mode === "300"){
+  timeLeft = 300;
+  timeEl.innerText = `${timeLeft}s`;
+}
+
+if(mode === "practice"){
+  timeEl.innerText = "—";
+}
 
       timerFill.style.width = "100%";
       resultBox.style.display = "none";
@@ -764,11 +797,12 @@
 
     // ---------------- EVENTS ----------------
     document.getElementById("practiceBtn").addEventListener("click", () => setMode("practice"));
-    document.getElementById("test30Btn").addEventListener("click", () => setMode("30"));
-    document.getElementById("test60Btn").addEventListener("click", () => setMode("60"));
-    document.getElementById("resetBtn").addEventListener("click", () => resetAll(false));
-    document.getElementById("newTextBtn").addEventListener("click", () => resetAll(true));
-
+document.getElementById("test30Btn").addEventListener("click", () => setMode("30"));
+document.getElementById("test60Btn").addEventListener("click", () => setMode("60"));
+document.getElementById("test2mBtn").addEventListener("click", () => setMode("120"));
+document.getElementById("test5mBtn").addEventListener("click", () => setMode("300"));
+document.getElementById("resetBtn").addEventListener("click", () => resetAll(false));
+document.getElementById("newTextBtn").addEventListener("click", () => resetAll(true));
     inputEl.addEventListener("input", () => {
       startIfNeeded();
 
@@ -809,7 +843,7 @@
         spans[cursorIndex].classList.add("cursor");
       }
 
-      if((mode === "30" || mode === "60") && typed.length >= target.length){
+      if((mode === "30" || mode === "60" || mode === "120" || mode === "300") && typed.length >= target.length){
         setText();
         inputEl.value = "";
         totalTyped = 0;
