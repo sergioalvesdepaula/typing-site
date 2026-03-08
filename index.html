@@ -295,7 +295,7 @@
           <div class="sub">Practice without pressure, or run a 30s / 60s test. Track WPM and accuracy — no signup.</div>
         </div>
       </div>
-      <div class="pill">Best (60s): <strong id="best60Top">—</strong> WPM</div>
+      <div class="pill">Top Best: <strong id="best60Top">—</strong> WPM</div>
     </header>
 
     <div class="grid">
@@ -603,11 +603,21 @@ const lastScoreEl = document.getElementById("lastScore");
 
     function renderProgress(){
   const p = loadProgress();
+
   best30El.innerText = p.best30 ? p.best30 : "—";
   best60El.innerText = p.best60 ? p.best60 : "—";
   best120El.innerText = p.best120 ? p.best120 : "—";
   best300El.innerText = p.best300 ? p.best300 : "—";
-  best60TopEl.innerText = p.best60 ? p.best60 : "—";
+
+  const topBest = Math.max(
+    p.best30 || 0,
+    p.best60 || 0,
+    p.best120 || 0,
+    p.best300 || 0
+  );
+
+  best60TopEl.innerText = topBest ? topBest : "—";
+
   testsEl.innerText = p.tests || 0;
   avgWpmEl.innerText = p.tests ? Math.round((p.wpmSum || 0) / p.tests) : "—";
   lastScoreEl.innerText = p.lastScore ? `${p.lastScore.wpm} WPM` : "—";
