@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Typing Certificate – Free Typing Speed Certificate</title>
+<meta name="description" content="Generate a free typing certificate and show your typing speed, accuracy, and test date. Perfect for personal progress and typing proof.">
+
+<style>
+body{
+  font-family: Arial, sans-serif;
+  background:#0b1220;
+  color:white;
+  padding:40px;
+  max-width:900px;
+  margin:auto;
+  line-height:1.7;
+}
+a{
+  color:#22c55e;
+}
+.box{
+  background:rgba(255,255,255,0.04);
+  border:1px solid rgba(255,255,255,0.10);
+  border-radius:14px;
+  padding:24px;
+  margin-top:20px;
+}
+.cert{
+  margin-top:20px;
+  background:white;
+  color:#111827;
+  border-radius:12px;
+  padding:30px;
+  text-align:center;
+}
+.label{
+  font-size:14px;
+  color:#6b7280;
+}
+.big{
+  font-size:36px;
+  font-weight:900;
+}
+input{
+  width:100%;
+  padding:12px;
+  border-radius:8px;
+  border:1px solid rgba(255,255,255,.15);
+  background:rgba(255,255,255,.05);
+  color:white;
+  margin-top:8px;
+  margin-bottom:16px;
+}
+button{
+  padding:12px 18px;
+  border:none;
+  border-radius:8px;
+  background:#22c55e;
+  color:white;
+  font-weight:bold;
+  cursor:pointer;
+}
+button:hover{
+  opacity:.9;
+}
+.grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:16px;
+}
+@media(max-width:700px){
+  .grid{ grid-template-columns:1fr; }
+}
+</style>
+</head>
+<body>
+
+<h1>Typing Speed Certificate</h1>
+
+<p>
+Create a free typing certificate showing your typing speed, accuracy, and date. This certificate is useful for personal progress tracking and sharing your typing performance.
+</p>
+
+<div class="box">
+  <div class="grid">
+    <div>
+      <label>Name</label>
+      <input type="text" id="certName" placeholder="Your name">
+    </div>
+
+    <div>
+      <label>Date</label>
+      <input type="text" id="certDate" placeholder="2026-03-08">
+    </div>
+
+    <div>
+      <label>Typing Speed (WPM)</label>
+      <input type="text" id="certWpm" placeholder="72">
+    </div>
+
+    <div>
+      <label>Accuracy (%)</label>
+      <input type="text" id="certAcc" placeholder="97">
+    </div>
+  </div>
+
+  <button type="button" onclick="generateCert()">Generate Certificate</button>
+
+  <div class="cert" id="certPreview" style="display:none;">
+    <div class="label">Certificate of Typing Performance</div>
+    <h2 style="margin-top:10px;">Typing Speed Certificate</h2>
+    <p>This certifies that</p>
+    <div class="big" id="outName">Your Name</div>
+    <p>achieved the following typing test result:</p>
+
+    <p><strong>Typing Speed:</strong> <span id="outWpm">0</span> WPM</p>
+    <p><strong>Accuracy:</strong> <span id="outAcc">0</span>%</p>
+    <p><strong>Date:</strong> <span id="outDate">—</span></p>
+
+    <p style="margin-top:30px; color:#6b7280;">Free Typing Practice</p>
+  </div>
+</div>
+
+<h2>How to Use the Typing Certificate</h2>
+<p>
+Enter your typing result, add your name, and generate a simple certificate for personal records or sharing. You can use your best result from any typing test duration.
+</p>
+
+<hr style="margin-top:40px; opacity:0.2;">
+
+<p>
+  <a href="index.html">Home</a> |
+  <a href="typing-speed-test.html">Typing Speed Test</a> |
+  <a href="1-minute-typing-test.html">1 Minute</a> |
+  <a href="2-minute-typing-test.html">2 Minute</a> |
+  <a href="5-minute-typing-test.html">5 Minute</a> |
+  <a href="10-minute-typing-test.html">10 Minute</a> |
+  <a href="about.html">About</a> |
+  <a href="privacy.html">Privacy Policy</a> |
+  <a href="contact.html">Contact</a>
+</p>
+
+<p style="font-size:13px; color:#9ca3af; margin-top:10px;">
+© 2026 Free Typing Practice
+</p>
+
+<script>
+function generateCert(){
+  const name = document.getElementById("certName").value || "Your Name";
+  const date = document.getElementById("certDate").value || new Date().toISOString().slice(0,10);
+  const wpm = document.getElementById("certWpm").value || "0";
+  const acc = document.getElementById("certAcc").value || "0";
+
+  document.getElementById("outName").innerText = name;
+  document.getElementById("outDate").innerText = date;
+  document.getElementById("outWpm").innerText = wpm;
+  document.getElementById("outAcc").innerText = acc;
+
+  document.getElementById("certPreview").style.display = "block";
+}
+</script>
+
+</body>
+</html>
