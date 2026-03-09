@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Typing Test Result – Free Typing Speed Result</title>
+<meta name="description" content="View and share your typing test result online. Compare your typing speed, words per minute, and accuracy.">
+
+<style>
+body{
+  font-family: Arial, sans-serif;
+  background:#0b1220;
+  color:white;
+  padding:40px;
+  max-width:900px;
+  margin:auto;
+  line-height:1.7;
+}
+a{
+  color:#22c55e;
+}
+.box{
+  background:rgba(255,255,255,0.04);
+  border:1px solid rgba(255,255,255,0.10);
+  border-radius:14px;
+  padding:24px;
+  margin-top:20px;
+}
+.resultCard{
+  background:linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.03));
+  border:1px solid rgba(255,255,255,.10);
+  border-radius:16px;
+  padding:28px;
+  margin-top:20px;
+  text-align:center;
+}
+.big{
+  font-size:56px;
+  font-weight:900;
+  line-height:1;
+}
+.label{
+  color:#9ca3af;
+  font-size:13px;
+  text-transform:uppercase;
+  letter-spacing:.08em;
+}
+.btn{
+  display:inline-block;
+  margin-top:14px;
+  padding:12px 18px;
+  background:#22c55e;
+  color:white;
+  text-decoration:none;
+  border-radius:8px;
+  font-weight:bold;
+}
+.btn.secondary{
+  background:rgba(255,255,255,.08);
+  border:1px solid rgba(255,255,255,.12);
+}
+.links{
+  margin-top:18px;
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+  justify-content:center;
+}
+</style>
+</head>
+<body>
+
+<h1>Typing Test Result</h1>
+
+<p>
+This page shows a typing test result with words per minute, accuracy, and test mode. You can share your result or challenge someone else to beat it.
+</p>
+
+<div class="resultCard">
+  <div class="label">Typing Result</div>
+  <div class="big"><span id="wpmOut">0</span> <span style="font-size:18px; color:#9ca3af;">WPM</span></div>
+
+  <p style="margin-top:14px;">
+    Accuracy: <strong id="accOut">0%</strong><br>
+    Mode: <strong id="modeOut">Practice</strong><br>
+    Date: <strong id="dateOut">—</strong>
+  </p>
+
+  <div class="links">
+    <a class="btn" href="index.html">Try to Beat This Score</a>
+    <a class="btn secondary" href="typing-certificate.html">Create Certificate</a>
+  </div>
+</div>
+
+<div class="box">
+  <h2>Share This Result</h2>
+  <p>
+    Copy the current page URL and share it with friends. You can use this typing result page to compare performance and challenge others.
+  </p>
+</div>
+
+<hr style="margin-top:40px; opacity:0.2;">
+
+<p>
+  <a href="index.html">Home</a> |
+  <a href="typing-speed-test.html">Typing Speed Test</a> |
+  <a href="typing-certificate.html">Typing Certificate</a> |
+  <a href="1-minute-typing-test.html">1 Minute</a> |
+  <a href="2-minute-typing-test.html">2 Minute</a> |
+  <a href="5-minute-typing-test.html">5 Minute</a> |
+  <a href="10-minute-typing-test.html">10 Minute</a> |
+  <a href="about.html">About</a> |
+  <a href="privacy.html">Privacy Policy</a> |
+  <a href="contact.html">Contact</a>
+</p>
+
+<p style="font-size:13px; color:#9ca3af; margin-top:10px;">
+© 2026 Free Typing Practice
+</p>
+
+<script>
+function getParam(name){
+  const url = new URL(window.location.href);
+  return url.searchParams.get(name);
+}
+
+const wpm = getParam("wpm") || "0";
+const acc = getParam("acc") || "0";
+const mode = getParam("mode") || "practice";
+const date = getParam("date") || new Date().toISOString().slice(0,10);
+
+document.getElementById("wpmOut").innerText = wpm;
+document.getElementById("accOut").innerText = acc + "%";
+document.getElementById("dateOut").innerText = date;
+
+let modeText = "Practice";
+if(mode === "30") modeText = "30s";
+if(mode === "60") modeText = "60s";
+if(mode === "120") modeText = "2m";
+if(mode === "300") modeText = "5m";
+
+document.getElementById("modeOut").innerText = modeText;
+
+document.title = `${wpm} WPM Typing Test Result`;
+</script>
+
+</body>
+</html>
