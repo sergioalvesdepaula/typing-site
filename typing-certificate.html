@@ -134,6 +134,7 @@ Enter your typing result, add your name, and generate a simple certificate for p
 <p>
   <a href="index.html">Home</a> |
   <a href="typing-speed-test.html">Typing Speed Test</a> |
+  <a href="typing-result.html">Typing Result</a> |
   <a href="1-minute-typing-test.html">1 Minute</a> |
   <a href="2-minute-typing-test.html">2 Minute</a> |
   <a href="5-minute-typing-test.html">5 Minute</a> |
@@ -148,6 +149,34 @@ Enter your typing result, add your name, and generate a simple certificate for p
 </p>
 
 <script>
+function getParam(name){
+  const url = new URL(window.location.href);
+  return url.searchParams.get(name);
+}
+
+function fillFromLastResult(){
+  const raw = localStorage.getItem("typing_site_progress_v2");
+  if(!raw) return;
+
+  try{
+    const data = JSON.parse(raw);
+    if(data.lastScore){
+      document.getElementById("certWpm").value = data.lastScore.wpm || "";
+      document.getElementById("certAcc").value = data.lastScore.acc || "";
+    }
+  }catch(e){}
+}
+
+function fillFromUrl(){
+  const wpm = getParam("wpm");
+  const acc = getParam("acc");
+  const date = getParam("date");
+
+  if(wpm) document.getElementById("certWpm").value = wpm;
+  if(acc) document.getElementById("certAcc").value = acc;
+  if(date) document.getElementById("certDate").value = date;
+}
+
 function generateCert(){
   const name = document.getElementById("certName").value || "Your Name";
   const date = document.getElementById("certDate").value || new Date().toISOString().slice(0,10);
@@ -161,6 +190,9 @@ function generateCert(){
 
   document.getElementById("certPreview").style.display = "block";
 }
+
+fillFromLastResult();
+fillFromUrl();
 </script>
 
 </body>
