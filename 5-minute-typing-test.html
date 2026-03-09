@@ -1,110 +1,89 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>5 Minute Typing Test – Check Your Typing Endurance</title>
-
-<meta name="description" content="Take a free 5 minute typing test to measure typing speed, endurance, and accuracy. Improve your words per minute with this online typing practice tool.">
-
+<title>5-Minute Typing Test – Free Typing Practice</title>
+<meta name="description" content="Take a free 5-minute typing speed test and track your WPM, accuracy, and progress. Learn tips and exercises to improve your typing skills.">
 <style>
-body{
-  font-family: Arial, sans-serif;
-  background:#0b1220;
-  color:white;
-  padding:40px;
-  max-width:900px;
-  margin:auto;
-  line-height:1.7;
-}
-a{
-  color:#22c55e;
-}
-.container{
-  background:rgba(255,255,255,0.04);
-  padding:30px;
-  border-radius:12px;
-  margin-top:20px;
-}
-.startBtn{
-  display:inline-block;
-  margin-top:20px;
-  padding:12px 18px;
-  background:#22c55e;
-  color:white;
-  border-radius:8px;
-  text-decoration:none;
-  font-weight:bold;
-}
-.startBtn:hover{
-  opacity:0.9;
-}
+body{font-family:Arial,sans-serif;background:#0b1220;color:white;padding:40px;max-width:900px;margin:auto;line-height:1.7;}
+a{color:#22c55e;}
+h2{margin-top:30px;}
+textarea{width:100%;padding:12px;border-radius:8px;border:1px solid rgba(255,255,255,.15);background:rgba(255,255,255,.05);color:white;margin-top:8px;margin-bottom:16px;}
+button{padding:12px 18px;border:none;border-radius:8px;background:#22c55e;color:white;font-weight:bold;cursor:pointer;}
+button:hover{opacity:.9;}
 </style>
-
 </head>
 <body>
 
-<h1>5 Minute Typing Test</h1>
+<h1>5-Minute Typing Test</h1>
+<p>Challenge yourself with this free 5-minute typing speed test. Measure your words per minute (WPM), accuracy, and monitor your improvement over time.</p>
 
-<p>
-The 5 minute typing test is perfect for measuring real typing endurance, consistency, and long-form typing accuracy. It gives a much better picture of your true keyboard performance than short tests.
-</p>
-
-<div class="container">
-  <h2>Start the 5 Minute Typing Test</h2>
-
-  <p>
-  Click the button below to begin your 5 minute typing speed test and see how well you perform over a longer typing session.
-  </p>
-
-  <a class="startBtn" href="index.html">Start Typing Test</a>
-</div>
-
-<h2>Why Use a 5 Minute Typing Test?</h2>
-
-<p>
-A 5 minute typing test is useful because it measures more than quick speed. It shows endurance, consistency, and how well you maintain accuracy over time. This is closer to real work and study situations.
-</p>
-
-<h2>Who Should Take a 5 Minute Typing Test?</h2>
-
-<p>
-This typing test is ideal for students, writers, programmers, remote workers, and professionals who type for longer periods and want to improve both speed and accuracy.
-</p>
-
-<h2>How to Get Better Results</h2>
-
+<h2>Typing Speed Levels Explained</h2>
+<p>Typing speeds are generally categorized as:</p>
 <ul>
-  <li>Stay relaxed while typing</li>
-  <li>Keep your eyes on the screen</li>
-  <li>Prioritize accuracy over speed</li>
-  <li>Practice with proper posture</li>
-  <li>Build consistency with daily practice</li>
+<li><strong>Beginner:</strong> 20–30 WPM</li>
+<li><strong>Intermediate:</strong> 30–50 WPM</li>
+<li><strong>Advanced:</strong> 50–70 WPM</li>
+<li><strong>Expert:</strong> 70+ WPM</li>
 </ul>
 
-<h2>What Is a Good WPM for 5 Minutes?</h2>
+<h2>Average Typing Speed by Profession</h2>
+<ul>
+<li>Data Entry Clerk: 50–70 WPM</li>
+<li>Programmer/Developer: 40–60 WPM</li>
+<li>Writer/Journalist: 50–65 WPM</li>
+<li>Student: 35–55 WPM</li>
+</ul>
 
-<p>
-A strong result over five minutes is usually lower than a short sprint test because endurance matters. Maintaining 40 to 60 WPM with high accuracy over five minutes is already a solid performance for many users.
-</p>
+<h2>Best Exercises to Improve Typing Speed</h2>
+<ul>
+<li>Touch typing drills</li>
+<li>Daily short typing tests</li>
+<li>Typing games and challenges</li>
+<li>Accuracy-focused exercises</li>
+</ul>
+
+<h2>Touch Typing vs Hunt and Peck</h2>
+<p>Touch typing is faster and more efficient than hunting and pecking. Learning correct finger placement and posture can dramatically improve your speed and accuracy.</p>
+
+<h2>Your 5-Minute Typing Test</h2>
+<textarea id="typingArea" placeholder="Start typing here..." rows="10"></textarea>
+<button onclick="startTest()">Start Test</button>
+<p id="result" style="margin-top:20px;font-weight:bold;"></p>
 
 <hr style="margin-top:40px; opacity:0.2;">
-
 <p>
-<a href="index.html">Home</a> |
-<a href="1-minute-typing-test.html">1 Minute Typing Test</a> |
-<a href="2-minute-typing-test.html">2 Minute Typing Test</a> |
-<a href="10-minute-typing-test.html">10 Minute Typing Test</a> |
-<a href="about.html">About</a> |
-<a href="privacy.html">Privacy Policy</a> |
-<a href="contact.html">Contact</a>
+  <a href="index.html">Home</a> |
+  <a href="1-minute-typing-test.html">1 Minute</a> |
+  <a href="2-minute-typing-test.html">2 Minute</a> |
+  <a href="5-minute-typing-test.html">5 Minute</a> |
+  <a href="10-minute-typing-test.html">10 Minute</a> |
+  <a href="typing-speed-test.html">Typing Speed Test</a> |
+  <a href="privacy.html">Privacy Policy</a> |
+  <a href="contact.html">Contact</a>
 </p>
 
-<p style="font-size:13px; color:#9ca3af; margin-top:10px;">
-© 2026 Free Typing Practice
-</p>
+<p style="font-size:13px; color:#9ca3af; margin-top:10px;">© 2026 Free Typing Practice</p>
+
+<script>
+let timer;
+function startTest(){
+  const area=document.getElementById("typingArea");
+  const result=document.getElementById("result");
+  area.disabled=false; area.focus(); result.innerText="Typing...";
+  const start=new Date().getTime();
+  const duration=300000; // 5 minutes
+  clearTimeout(timer);
+  timer=setTimeout(()=>{
+    area.disabled=true;
+    const text=area.value.trim();
+    const words=text.split(/\s+/).length;
+    result.innerText="Time's up! Your WPM: "+Math.round(words/5);
+  },duration);
+}
+</script>
 
 </body>
 </html>
+ 
