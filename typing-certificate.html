@@ -110,18 +110,25 @@ Create a free typing certificate showing your typing speed, accuracy, and date. 
   <button type="button" onclick="generateCert()">Generate Certificate</button>
 
   <div class="cert" id="certPreview" style="display:none;">
-    <div class="label">Certificate of Typing Performance</div>
-    <h2 style="margin-top:10px;">Typing Speed Certificate</h2>
-    <p>This certifies that</p>
-    <div class="big" id="outName">Your Name</div>
-    <p>achieved the following typing test result:</p>
+  <div class="label">Certificate of Typing Performance</div>
+  <h2 style="margin-top:10px;">Typing Speed Certificate</h2>
+  <p>This certifies that</p>
 
-    <p><strong>Typing Speed:</strong> <span id="outWpm">0</span> WPM</p>
-    <p><strong>Accuracy:</strong> <span id="outAcc">0</span>%</p>
-    <p><strong>Date:</strong> <span id="outDate">—</span></p>
+  <div class="big" id="outName">Your Name</div>
 
-    <p style="margin-top:30px; color:#6b7280;">Free Typing Practice</p>
-  </div>
+  <p>achieved the following typing test result:</p>
+
+  <p><strong>Typing Speed:</strong> <span id="outWpm">0</span> WPM</p>
+  <p><strong>Accuracy:</strong> <span id="outAcc">0</span>%</p>
+  <p><strong>Date:</strong> <span id="outDate">—</span></p>
+
+  <p style="margin-top:30px; color:#6b7280;">Free Typing Practice</p>
+
+ <button onclick="downloadCert()" style="margin-top:20px;">
+Download Certificate
+</button>
+
+</div>
 </div>
 
 <h2>How to Use the Typing Certificate</h2>
@@ -147,8 +154,17 @@ Enter your typing result, add your name, and generate a simple certificate for p
 <p style="font-size:13px; color:#9ca3af; margin-top:10px;">
 © 2026 Free Typing Practice
 </p>
-
+  
 <script>
+
+  function downloadCert(){
+  const element = document.getElementById("certPreview");
+
+  const win = window.open("", "_blank");
+  win.document.write("<html><body>"+element.outerHTML+"</body></html>");
+  win.print();
+}
+
 function getParam(name){
   const url = new URL(window.location.href);
   return url.searchParams.get(name);
