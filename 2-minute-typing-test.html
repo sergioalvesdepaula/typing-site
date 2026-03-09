@@ -1,104 +1,91 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>2 Minute Typing Test – Measure Your Typing Speed</title>
-
-<meta name="description" content="Take a free 2 minute typing test and measure your typing speed in words per minute. Practice typing online and improve your keyboard accuracy and speed.">
-
+<title>2-Minute Typing Test – Free Typing Practice</title>
+<meta name="description" content="Take a free 2-minute typing speed test and track your WPM, accuracy, and progress. Learn tips and exercises to improve your typing skills.">
 <style>
-body{
-  font-family: Arial, sans-serif;
-  background:#0b1220;
-  color:white;
-  padding:40px;
-  max-width:900px;
-  margin:auto;
-  line-height:1.7;
-}
-a{
-  color:#22c55e;
-}
-.container{
-  background:rgba(255,255,255,0.04);
-  padding:30px;
-  border-radius:12px;
-  margin-top:20px;
-}
-.startBtn{
-  display:inline-block;
-  margin-top:20px;
-  padding:12px 18px;
-  background:#22c55e;
-  color:white;
-  border-radius:8px;
-  text-decoration:none;
-  font-weight:bold;
-}
-.startBtn:hover{
-  opacity:0.9;
-}
+body{font-family:Arial,sans-serif;background:#0b1220;color:white;padding:40px;max-width:900px;margin:auto;line-height:1.7;}
+a{color:#22c55e;}
+h2{margin-top:30px;}
+input,textarea{width:100%;padding:12px;border-radius:8px;border:1px solid rgba(255,255,255,.15);background:rgba(255,255,255,.05);color:white;margin-top:8px;margin-bottom:16px;}
+button{padding:12px 18px;border:none;border-radius:8px;background:#22c55e;color:white;font-weight:bold;cursor:pointer;}
+button:hover{opacity:.9;}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+@media(max-width:700px){.grid{grid-template-columns:1fr;}}
 </style>
-
 </head>
 <body>
 
-<h1>2 Minute Typing Test</h1>
+<h1>2-Minute Typing Test</h1>
+<p>Challenge yourself with this free 2-minute typing speed test. Measure your words per minute (WPM), accuracy, and see how much you improve over time.</p>
 
-<p>
-This free 2 minute typing test helps you measure your typing speed and accuracy over a longer period of time. It is ideal for users who want a more realistic view of their words per minute performance.
-</p>
-
-<div class="container">
-  <h2>Start the 2 Minute Typing Test</h2>
-
-  <p>
-  Click the button below to begin your typing speed test and check how many words per minute you can type in two minutes.
-  </p>
-
-  <a class="startBtn" href="index.html">Start Typing Test</a>
-</div>
-
-<h2>Why Take a 2 Minute Typing Test?</h2>
-
-<p>
-A 2 minute typing test gives a more stable measurement than shorter tests because it reduces luck and better reflects real typing endurance. It is useful for students, office workers, writers, and anyone who wants to improve keyboard skills.
-</p>
-
-<h2>What Is a Good Typing Speed?</h2>
-
-<p>
-An average typing speed is around 40 words per minute. A good typing speed is often between 50 and 70 WPM, while advanced typists may go much higher with strong accuracy.
-</p>
-
-<h2>How to Improve Your Typing Speed</h2>
-
+<h2>Typing Speed Levels Explained</h2>
+<p>Typing speeds are generally categorized as:</p>
 <ul>
-  <li>Practice a little every day</li>
-  <li>Focus on accuracy first</li>
-  <li>Keep your hands relaxed</li>
-  <li>Avoid looking at the keyboard</li>
-  <li>Use correct finger placement</li>
+<li><strong>Beginner:</strong> 20–30 WPM</li>
+<li><strong>Intermediate:</strong> 30–50 WPM</li>
+<li><strong>Advanced:</strong> 50–70 WPM</li>
+<li><strong>Expert:</strong> 70+ WPM</li>
 </ul>
 
+<h2>Average Typing Speed by Profession</h2>
+<ul>
+<li>Data Entry Clerk: 50–70 WPM</li>
+<li>Programmer/Developer: 40–60 WPM</li>
+<li>Writer/Journalist: 50–65 WPM</li>
+<li>Student: 35–55 WPM</li>
+</ul>
+
+<h2>Best Exercises to Improve Typing Speed</h2>
+<p>Practice regularly using:</p>
+<ul>
+<li>Touch typing drills</li>
+<li>Daily short typing tests</li>
+<li>Typing games and challenges</li>
+<li>Accuracy-focused exercises</li>
+</ul>
+
+<h2>Touch Typing vs Hunt and Peck</h2>
+<p>Touch typing is faster and more efficient than hunting and pecking. Learning correct finger placement and posture can dramatically improve your speed and accuracy.</p>
+
+<h2>Your 2-Minute Typing Test</h2>
+<textarea id="typingArea" placeholder="Start typing here..." rows="10"></textarea>
+<button onclick="startTest()">Start Test</button>
+<p id="result" style="margin-top:20px;font-weight:bold;"></p>
+
 <hr style="margin-top:40px; opacity:0.2;">
-
 <p>
-<a href="index.html">Home</a> |
-<a href="1-minute-typing-test.html">1 Minute Typing Test</a> |
-<a href="5-minute-typing-test.html">5 Minute Typing Test</a> |
-<a href="10-minute-typing-test.html">10 Minute Typing Test</a> |
-<a href="about.html">About</a> |
-<a href="privacy.html">Privacy Policy</a> |
-<a href="contact.html">Contact</a>
+  <a href="index.html">Home</a> |
+  <a href="1-minute-typing-test.html">1 Minute</a> |
+  <a href="2-minute-typing-test.html">2 Minute</a> |
+  <a href="5-minute-typing-test.html">5 Minute</a> |
+  <a href="10-minute-typing-test.html">10 Minute</a> |
+  <a href="typing-speed-test.html">Typing Speed Test</a> |
+  <a href="privacy.html">Privacy Policy</a> |
+  <a href="contact.html">Contact</a>
 </p>
 
-<p style="font-size:13px; color:#9ca3af; margin-top:10px;">
-© 2026 Free Typing Practice
-</p>
+<p style="font-size:13px; color:#9ca3af; margin-top:10px;">© 2026 Free Typing Practice</p>
+
+<script>
+let timer;
+function startTest(){
+  const area=document.getElementById("typingArea");
+  const result=document.getElementById("result");
+  area.disabled=false; area.focus(); result.innerText="Typing...";
+  const start=new Date().getTime();
+  const duration=120000; // 2 minutes
+  clearTimeout(timer);
+  timer=setTimeout(()=>{
+    area.disabled=true;
+    const text=area.value.trim();
+    const words=text.split(/\s+/).length;
+    result.innerText="Time's up! Your WPM: "+Math.round(words/2);
+  },duration);
+}
+</script>
 
 </body>
 </html>
