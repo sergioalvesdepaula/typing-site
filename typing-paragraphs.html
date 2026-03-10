@@ -11,6 +11,31 @@
     .paragraph { background:#111b2f; padding:15px; border-radius:12px; margin-bottom:14px; line-height:1.6; cursor:pointer; }
     .paragraph:hover { background:#1f2a45; }
     .note { margin-top:20px; color:#9ca3af; }
+.box{
+  margin-top:30px;
+  padding:20px;
+  background:rgba(255,255,255,0.05);
+  border-radius:10px;
+}
+
+.stats{
+  margin-top:15px;
+  display:flex;
+  gap:20px;
+  font-weight:bold;
+}
+
+textarea{
+  width:100%;
+  height:120px;
+  margin-top:15px;
+  padding:12px;
+  border-radius:8px;
+  border:none;
+  font-family:monospace;
+  font-size:16px;
+}
+    
   </style>
 </head>
 <body>
@@ -57,13 +82,19 @@ Touch typing allows users to type without looking at the keyboard, increasing sp
 
     <p class="note">Click any paragraph to load it directly into your typing test.</p>
   </div>
-
+function resetTest(){
+  document.getElementById("typingInput").value="";
+  document.getElementById("targetText").innerText="";
+  document.getElementById("wpm").innerText="0";
+  document.getElementById("accuracy").innerText="100";
+  document.getElementById("time").innerText="0";
+}
   <script>
     function loadParagraph(element) {
       const text = element.innerText.trim();
       // Salvar no localStorage para ser acessado pela página do teste
       localStorage.setItem('customTypingParagraph', text);
-      alert('Paragraph loaded! Go to the Typing Test page and start typing.');
+      window.location.href = 'typing-speed-test.html';
       // Opcional: redirecionar automaticamente para o teste
       // window.location.href = 'typing-speed-test.html';
     }
