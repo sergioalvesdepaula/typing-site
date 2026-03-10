@@ -3,75 +3,37 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Typing Test Paragraphs – Improve Your Typing Speed</title>
-  <meta name="description" content="Practice typing with real paragraphs. Improve your speed and accuracy using free typing test paragraphs designed for all skill levels.">
-  <meta name="robots" content="index,follow">
-
+  <title>Typing Test Paragraphs</title>
   <style>
-    body {
-      font-family: Arial, sans-serif;
-      background: #0b1220;
-      color: #e5e7eb;
-      margin: 0;
-      padding: 20px;
-    }
-    a { color: #3b82f6; text-decoration: none; }
-    a:hover { text-decoration: underline; }
-    .wrap { max-width: 900px; margin: 0 auto; }
-    h1, h2 { color: #22c55e; }
-    p { line-height: 1.6; margin-bottom: 15px; }
-    .paragraph-box {
-      background: rgba(255,255,255,0.03);
-      border: 1px solid rgba(255,255,255,0.1);
-      border-radius: 12px;
-      padding: 16px;
-      margin-bottom: 20px;
-      font-family: monospace;
-      white-space: pre-wrap;
-    }
-    footer { margin-top: 60px; text-align: center; font-size: 13px; color: #9ca3af; }
+    body { font-family: sans-serif; background:#0b1220; color:#e5e7eb; padding:20px; }
+    .wrap { max-width:900px; margin:0 auto; }
+    h1 { font-size:24px; margin-bottom:20px; color:#22c55e; }
+    .paragraph { background:#111b2f; padding:15px; border-radius:12px; margin-bottom:14px; line-height:1.6; cursor:pointer; }
+    .paragraph:hover { background:#1f2a45; }
+    .note { margin-top:20px; color:#9ca3af; }
   </style>
 </head>
-
 <body>
   <div class="wrap">
     <h1>Typing Test Paragraphs</h1>
-    <p>Practice your typing skills with these ready-to-use paragraphs. Use them in your preferred typing test or practice directly here by copying the text into your typing input. Focus on accuracy first, then increase speed!</p>
 
-    <h2>Paragraph 1</h2>
-    <div class="paragraph-box">
-      Typing is a crucial skill in the digital world. It helps you communicate faster, improve productivity, and reduce errors. Regular practice with paragraphs of varying lengths enhances both speed and accuracy.
-    </div>
+    <div class="paragraph" onclick="loadParagraph(this)">Typing is a powerful skill that improves productivity and focus.</div>
+    <div class="paragraph" onclick="loadParagraph(this)">Accuracy is more important than speed at the beginning.</div>
+    <div class="paragraph" onclick="loadParagraph(this)">Consistency beats intensity. Ten minutes daily can change your typing speed.</div>
+    <div class="paragraph" onclick="loadParagraph(this)">Practice every day and your speed will increase naturally.</div>
 
-    <h2>Paragraph 2</h2>
-    <div class="paragraph-box">
-      Consistency beats intensity when it comes to typing practice. Practicing daily, even for just 10 minutes, trains your muscle memory and helps your fingers remember key positions. Accuracy should always come before speed.
-    </div>
-
-    <h2>Paragraph 3</h2>
-    <div class="paragraph-box">
-      Learning to type without looking at the keyboard can significantly increase your WPM. Start with short sentences, then gradually move on to longer paragraphs. The key is to remain relaxed and focused while typing.
-    </div>
-
-    <h2>Paragraph 4</h2>
-    <div class="paragraph-box">
-      Different types of texts challenge your typing skills in unique ways. Practice with stories, articles, and technical passages to become a versatile typist. Tracking your progress and noting areas of improvement is essential.
-    </div>
-
-    <h2>Paragraph 5</h2>
-    <div class="paragraph-box">
-      Remember to maintain correct posture and hand placement. Keep your wrists straight, fingers on home row keys, and avoid unnecessary tension. Good habits formed early will make you a fast and accurate typist for years.
-    </div>
-
-    <footer>
-      <p>
-        <a href="index.html">Home</a> |
-        <a href="typing-speed-test.html">Typing Speed Test</a> |
-        <a href="typing-certificate.html">Typing Certificate</a> |
-        <a href="typing-paragraphs.html">Typing Test Paragraphs</a>
-      </p>
-      <p>© 2026 Free Typing Practice. All rights reserved.</p>
-    </footer>
+    <p class="note">Click any paragraph to load it directly into your typing test.</p>
   </div>
+
+  <script>
+    function loadParagraph(element) {
+      const text = element.innerText.trim();
+      // Salvar no localStorage para ser acessado pela página do teste
+      localStorage.setItem('customTypingParagraph', text);
+      alert('Paragraph loaded! Go to the Typing Test page and start typing.');
+      // Opcional: redirecionar automaticamente para o teste
+      // window.location.href = 'typing-speed-test.html';
+    }
+  </script>
 </body>
 </html>
