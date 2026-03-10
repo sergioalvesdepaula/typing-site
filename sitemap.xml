@@ -1,18 +1,23 @@
-<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
 <url>
 <loc>https://sergioalvesdepaula.github.io/typing-site/</loc>
 </url>
-<url>
-<loc>https://sergioalvesdepaula.github.io/typing-site/typing-speed-chart.html</loc>
-</url>
+
 <url>
 <loc>https://sergioalvesdepaula.github.io/typing-site/typing-speed-test.html</loc>
 </url>
 
 <url>
 <loc>https://sergioalvesdepaula.github.io/typing-site/typing-certificate.html</loc>
+</url>
+
+<url>
+<loc>https://sergioalvesdepaula.github.io/typing-site/typing-speed-chart.html</loc>
+</url>
+
+<url>
+<loc>https://sergioalvesdepaula.github.io/typing-site/typing-paragraphs.html</loc>
 </url>
 
 <url>
