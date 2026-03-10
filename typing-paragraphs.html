@@ -16,7 +16,40 @@
 <body>
   <div class="wrap">
     <h1>Typing Test Paragraphs</h1>
+    
+<div class="paragraph" onclick="loadParagraph(this)">
+Typing is an essential digital skill that improves productivity and efficiency when working with computers.
+</div>
 
+<div class="paragraph" onclick="loadParagraph(this)">
+Consistent practice helps improve both typing speed and typing accuracy over time.
+</div>
+
+<div class="paragraph" onclick="loadParagraph(this)">
+Many professional typists reach speeds of more than seventy words per minute through daily practice.
+</div>
+
+<div class="paragraph" onclick="loadParagraph(this)">
+Touch typing allows users to type without looking at the keyboard, increasing speed and accuracy.
+</div>
+
+<div class="box">
+
+<h2>Your Typing Test</h2>
+
+<div id="targetText"></div>
+
+<textarea id="typingInput" placeholder="Start typing here..."></textarea>
+
+<div class="stats">
+<div>WPM: <span id="wpm">0</span></div>
+<div>Accuracy: <span id="accuracy">100</span>%</div>
+<div>Time: <span id="time">0</span>s</div>
+</div>
+
+<button onclick="resetTest()">Reset Test</button>
+
+</div>
     <div class="paragraph" onclick="loadParagraph(this)">Typing is a powerful skill that improves productivity and focus.</div>
     <div class="paragraph" onclick="loadParagraph(this)">Accuracy is more important than speed at the beginning.</div>
     <div class="paragraph" onclick="loadParagraph(this)">Consistency beats intensity. Ten minutes daily can change your typing speed.</div>
