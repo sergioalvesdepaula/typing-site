@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Typing Speed Calculator – Free WPM Calculator Online</title>
+
+<meta name="description" content="Use our free typing speed calculator to calculate words per minute (WPM), typing accuracy, and typing performance online.">
+
+<link rel="canonical" href="https://sergioalvesdepaula.github.io/typing-site/typing-speed-calculator.html" />
+
+<meta name="robots" content="index,follow">
+
+<meta property="og:title" content="Typing Speed Calculator – Free WPM Calculator Online">
+<meta property="og:description" content="Calculate typing speed, words per minute, and accuracy with this free online typing speed calculator.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://sergioalvesdepaula.github.io/typing-site/typing-speed-calculator.html">
+<meta property="og:site_name" content="Free Typing Practice">
+
+<style>
+body{
+  font-family:Arial, sans-serif;
+  background:#0b1220;
+  color:white;
+  max-width:900px;
+  margin:auto;
+  padding:40px;
+  line-height:1.7;
+}
+
+a{
+  color:#22c55e;
+  text-decoration:none;
+}
+
+a:hover{
+  text-decoration:underline;
+}
+
+h1{
+  margin-bottom:10px;
+}
+
+h2{
+  margin-top:35px;
+}
+
+.section{
+  background:rgba(255,255,255,0.04);
+  padding:25px;
+  border-radius:12px;
+  margin-top:30px;
+  border:1px solid rgba(255,255,255,0.08);
+}
+
+.grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:16px;
+}
+
+@media(max-width:700px){
+  .grid{grid-template-columns:1fr;}
+}
+
+label{
+  display:block;
+  margin-bottom:6px;
+  font-weight:bold;
+}
+
+input{
+  width:100%;
+  padding:12px;
+  border-radius:8px;
+  border:1px solid rgba(255,255,255,.15);
+  background:rgba(255,255,255,.05);
+  color:white;
+  margin-bottom:16px;
+}
+
+button{
+  padding:12px 18px;
+  border:none;
+  border-radius:8px;
+  background:#22c55e;
+  color:black;
+  font-weight:bold;
+  cursor:pointer;
+}
+
+.result{
+  margin-top:20px;
+  padding:20px;
+  border-radius:12px;
+  background:rgba(255,255,255,0.05);
+  border:1px solid rgba(255,255,255,0.08);
+}
+
+</style>
+
+</head>
+
+<body>
+
+<h1>Typing Speed Calculator</h1>
+
+<p>
+Use this free typing speed calculator to estimate your words per minute (WPM), typing accuracy, and overall typing performance. Enter your total typed characters, errors, and time to calculate your typing results.
+</p>
+
+<div class="section">
+
+<h2>Calculate Your Typing Speed</h2>
+
+<div class="grid">
+  <div>
+    <label for="charsTyped">Total Characters Typed</label>
+    <input type="number" id="charsTyped" placeholder="Example: 250">
+
+    <label for="errorsMade">Errors Made</label>
+    <input type="number" id="errorsMade" placeholder="Example: 5">
+
+    <label for="timeMinutes">Time in Minutes</label>
+    <input type="number" id="timeMinutes" step="0.1" placeholder="Example: 1">
+
+    <button type="button" onclick="calculateTypingSpeed()">Calculate</button>
+  </div>
+
+  <div class="result" id="resultBox">
+    <p><strong>Net WPM:</strong> <span id="netWpm">0</span></p>
+    <p><strong>Gross WPM:</strong> <span id="grossWpm">0</span></p>
+    <p><strong>Accuracy:</strong> <span id="accuracy">100</span>%</p>
+  </div>
+</div>
+
+</div>
+
+<div class="section">
+
+<h2>How Is Typing Speed Calculated?</h2>
+
+<p>
+Typing speed is usually measured in words per minute (WPM). One word is generally counted as five characters, including spaces and punctuation.
+</p>
+
+<p>
+Gross WPM is calculated from the total number of characters typed. Net WPM is calculated after subtracting the impact of typing errors.
+</p>
+
+</div>
+
+<div class="section">
+
+<h2>What Is a Good Typing Speed?</h2>
+
+<p>
+A normal typing speed for many users is around 40 WPM. A good typing speed is often considered between 40 and 60 WPM, while advanced typists may type much faster with high accuracy.
+</p>
+
+<p>
+Typing practice and regular typing tests are the best ways to improve typing speed over time.
+</p>
+
+</div>
+
+<div class="section">
+
+<h2>More Typing Tools</h2>
+
+<ul>
+  <li><a href="typing-test.html">Typing Test</a></li>
+  <li><a href="free-typing-test.html">Free Typing Test</a></li>
+  <li><a href="typing-practice.html">Typing Practice</a></li>
+  <li><a href="typing-practice-online.html">Typing Practice Online</a></li>
+  <li><a href="typing-speed-test.html">Typing Speed Test</a></li>
+  <li><a href="typing-speed-chart.html">Typing Speed Chart</a></li>
+  <li><a href="typing-paragraphs.html">Typing Paragraphs</a></li>
+  <li><a href="average-typing-speed.html">Average Typing Speed</a></li>
+</ul>
+
+</div>
+
+<hr style="margin-top:50px; opacity:0.2;">
+
+<p style="font-size:14px">
+<a href="index.html">Home</a> |
+<a href="typing-test.html">Typing Test</a> |
+<a href="typing-practice.html">Typing Practice</a> |
+<a href="typing-speed-test.html">Typing Speed Test</a> |
+<a href="typing-speed-chart.html">Typing Speed Chart</a> |
+<a href="about.html">About</a> |
+<a href="privacy.html">Privacy Policy</a> |
+<a href="terms.html">Terms</a> |
+<a href="contact.html">Contact</a>
+</p>
+
+<p style="font-size:13px;color:#9ca3af;margin-top:10px">
+© 2026 Free Typing Practice
+</p>
+
+<script>
+function calculateTypingSpeed(){
+  const chars = parseFloat(document.getElementById("charsTyped").value) || 0;
+  const errors = parseFloat(document.getElementById("errorsMade").value) || 0;
+  const minutes = parseFloat(document.getElementById("timeMinutes").value) || 0;
+
+  if(minutes <= 0){
+    document.getElementById("netWpm").innerText = "0";
+    document.getElementById("grossWpm").innerText = "0";
+    document.getElementById("accuracy").innerText = "100";
+    return;
+  }
+
+  const grossWpm = (chars / 5) / minutes;
+  const netWpm = Math.max(0, grossWpm - (errors / minutes));
+  const accuracy = chars > 0 ? Math.max(0, Math.round(((chars - errors) / chars) * 100)) : 100;
+
+  document.getElementById("grossWpm").innerText = Math.round(grossWpm);
+  document.getElementById("netWpm").innerText = Math.round(netWpm);
+  document.getElementById("accuracy").innerText = accuracy;
+}
+</script>
+
+<script type="application/ld+json">
+{
+"@context":"https://schema.org",
+"@type":"WebPage",
+"name":"Typing Speed Calculator",
+"description":"Free online typing speed calculator to estimate words per minute and typing accuracy.",
+"url":"https://sergioalvesdepaula.github.io/typing-site/typing-speed-calculator.html"
+}
+</script>
+
+</body>
+</html>
